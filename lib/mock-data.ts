@@ -1,5 +1,12 @@
 import { ManufacturingOrder, OrderStatus, Priority } from '@/types';
 
+// Deterministic random number generator to prevent Next.js hydration errors
+let seed = 12345;
+const random = () => {
+    const x = Math.sin(seed++) * 10000;
+    return x - Math.floor(x);
+};
+
 export const PRODUCTS = [
     { name: 'Industrial Pump', part: 'IP-100', unit: 'pcs' },
     { name: 'Hydraulic Valve', part: 'HV-250', unit: 'pcs' },
@@ -22,35 +29,35 @@ export const FACTORIES = ['Jakarta Plant', 'Bandung Plant', 'Surabaya Plant', 'U
 
 export const generateMockData = (count: number): ManufacturingOrder[] => {
     return Array.from({ length: count }, (_, i) => {
-        const product = PRODUCTS[Math.floor(Math.random() * PRODUCTS.length)];
-        const createdDate = new Date(2026, 1, 15 + Math.floor(Math.random() * 30));
-        const startOffset = Math.floor(Math.random() * 10);
+        const product = PRODUCTS[Math.floor(random() * PRODUCTS.length)];
+        const createdDate = new Date(2026, 1, 15 + Math.floor(random() * 30));
+        const startOffset = Math.floor(random() * 10);
         const startDate = new Date(createdDate);
         startDate.setDate(startDate.getDate() + startOffset);
         const finishDate = new Date(startDate);
-        finishDate.setDate(finishDate.getDate() + Math.floor(Math.random() * 14) + 1);
+        finishDate.setDate(finishDate.getDate() + Math.floor(random() * 14) + 1);
         const dueDate = new Date(finishDate);
-        dueDate.setDate(dueDate.getDate() + Math.floor(Math.random() * 5));
+        dueDate.setDate(dueDate.getDate() + Math.floor(random() * 5));
 
         const formatDate = (d: Date) => `${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')}/${d.getFullYear()}`;
 
         return {
             id: `uuid-${i}`,
             orderNumber: `MO${String(20000 + i).padStart(5, '0')}`,
-            status: STATUSES[Math.floor(Math.random() * STATUSES.length)],
+            status: STATUSES[Math.floor(random() * STATUSES.length)],
             productName: product.name,
-            quantity: Math.floor(Math.random() * 500) + 10,
+            quantity: Math.floor(random() * 500) + 10,
             unit: product.unit,
             partNumber: product.part,
-            partsStatus: PARTS_STATUSES[Math.floor(Math.random() * PARTS_STATUSES.length)] as any,
-            priority: PRIORITIES[Math.floor(Math.random() * PRIORITIES.length)],
+            partsStatus: PARTS_STATUSES[Math.floor(random() * PARTS_STATUSES.length)] as any,
+            priority: PRIORITIES[Math.floor(random() * PRIORITIES.length)],
             createdDate: formatDate(createdDate),
             startDate: formatDate(startDate),
             finishDate: formatDate(finishDate),
             dueDate: formatDate(dueDate),
-            assignedOperator: OPERATORS[Math.floor(Math.random() * OPERATORS.length)],
-            factory: FACTORIES[Math.floor(Math.random() * FACTORIES.length)],
-            progress: Math.floor(Math.random() * 101),
+            assignedOperator: OPERATORS[Math.floor(random() * OPERATORS.length)],
+            factory: FACTORIES[Math.floor(random() * FACTORIES.length)],
+            progress: Math.floor(random() * 101),
         };
     });
 };

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 export const ScheduleView = () => (
     <div className="p-6 h-full flex flex-col bg-white">
         <div className="mb-6 flex justify-between items-center">
-            <h2 className="text-lg font-medium">Production Schedule (Gantt)</h2>
+            
             <div className="flex gap-2">
                 <Button variant="outline" size="sm">Today</Button>
                 <div className="flex bg-gray-100 p-0.5 rounded-sm">

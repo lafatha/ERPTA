@@ -2,7 +2,7 @@ import React from 'react';
 
 export const StatsView = () => (
     <div className="p-6 h-full flex flex-col bg-gray-50/50 overflow-auto">
-        <h2 className="text-lg font-medium mb-6">Manufacturing Statistics</h2>
+        
         <div className="grid grid-cols-3 gap-6 mb-6">
             {/* KPI Cards */}
             {[

@@ -1,212 +1,219 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Icons } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
 import { useMockDb } from '@/lib/mock-db-context';
 
 export const DashboardView = () => {
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => setMounted(true), []);
+
     const { state } = useMockDb();
-    const { manufacturingOrders, inventoryItems } = state;
+    const { manufacturingOrders, inventoryItems, purchaseOrders, customers } = state;
 
     const activeMOs = manufacturingOrders.filter(o => ['Planned', 'Scheduled', 'Released', 'In Production'].includes(o.status)).length;
     const delayedMOs = manufacturingOrders.filter(o => o.status === 'Delayed').length;
     const lowStockItems = inventoryItems.filter(i => i.status === 'Low Stock' || i.status === 'Out of Stock').length;
+    const openPOs = purchaseOrders.filter(po => ['Draft', 'Submitted', 'Approved', 'Ordered', 'Partially Received'].includes(po.status)).length;
+    const activeCustomers = customers.filter(c => c.status === 'Active').length;
 
     const KPIS = [
         { label: 'Monthly Revenue', value: '$2.4M', trend: '+12%', isPositive: true, icon: Icons.BarChart },
         { label: 'Inventory Value', value: '$854k', trend: '-2%', isPositive: false, icon: Icons.Package },
         { label: 'Active MOs', value: activeMOs.toString(), trend: '+5', isPositive: true, icon: Icons.Factory },
-        { label: 'Open POs', value: '18', trend: '-3', isPositive: true, icon: Icons.ShoppingCart },
-        { label: 'Active Customers', value: '124', trend: '+12', isPositive: true, icon: Icons.Users },
+        { label: 'Open POs', value: openPOs.toString(), trend: '-3', isPositive: true, icon: Icons.ShoppingCart },
+        { label: 'Active Customers', value: activeCustomers.toString(), trend: '+12', isPositive: true, icon: Icons.Users },
         { label: 'Ongoing Projects', value: '7', trend: '0', isPositive: true, icon: Icons.Folder },
         { label: 'Delayed Orders', value: delayedMOs.toString(), trend: '-2', isPositive: delayedMOs === 0, icon: Icons.Clock },
         { label: 'Low-stock Items', value: lowStockItems.toString(), trend: '+4', isPositive: false, icon: Icons.Bell },
     ];
 
     const RECENT_MOS = manufacturingOrders.slice(0, 4);
-
-    const RECENT_POS = [
-        { id: 'PO10299', supplier: 'TechCorp Parts', status: 'Ordered', amount: '$12,500' },
-        { id: 'PO10300', supplier: 'Global Steel Inc', status: 'Expected', amount: '$45,000' },
-        { id: 'PO10301', supplier: 'Electro Components', status: 'Draft', amount: '$3,200' },
-        { id: 'PO10302', supplier: 'Fasteners Ltd', status: 'Received', amount: '$850' },
-    ];
+    const RECENT_POS = purchaseOrders.slice(0, 4);
 
     const ALERTS = [
         { id: 1, type: 'error', message: 'MO20514 delayed due to material shortage (Copper Wire).', time: '2h ago' },
         { id: 2, type: 'warning', message: 'Low stock alert: Hydraulic Fluid (Current: 12L, Min: 20L).', time: '4h ago' },
-        { id: 3, type: 'info', message: 'Supplier "TechCorp Parts" updated delivery date for PO10299.', time: '5h ago' },
-        { id: 4, type: 'error', message: 'Quality check failed for received batch RC-9912.', time: '1d ago' },
     ];
 
+    const alerts = [
+        { id: 1, type: 'error', title: 'MO20514 delayed', message: 'Material shortage (Copper Wire).', time: '2h ago' },
+        { id: 2, type: 'warning', title: 'Low stock alert', message: 'Hydraulic Fluid (Current: 12L).', time: '4h ago' },
+        { id: 3, type: 'info', title: 'Supplier update', message: 'TechCorp Parts updated PO10299.', time: '5h ago' },
+    ];
+
+    if (!mounted) {
+        return <div className="p-6 h-full flex items-center justify-center text-gray-500">Loading dashboard...</div>;
+    }
+
     return (
-        <div className="p-6 h-full overflow-y-auto bg-gray-50/50">
-            <div className="max-w-7xl mx-auto space-y-6 pb-12">
-                
-                {/* Header */}
-                <div className="flex items-center justify-between">
-                    <div>
-                        <h1 className="text-2xl font-semibold text-gray-900">Executive Overview</h1>
-                        <p className="text-sm text-gray-500 mt-1">Real-time pulse of your manufacturing operations.</p>
-                    </div>
-                    <div className="flex gap-2 text-sm">
-                        <span className="text-gray-500">Last updated: Just now</span>
-                    </div>
+        <div className="p-6 h-full overflow-y-auto space-y-6">
+            {/* Header section */}
+            <div className="flex justify-between items-start">
+                <div></div>
+                <div className="text-sm text-gray-400 dark:text-[#717171]">
+                    Last updated: Just now
                 </div>
+            </div>
 
                 {/* KPI Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {KPIS.map((kpi, idx) => (
-                        <div key={idx} className="bg-white p-4 border border-gray-200 rounded-sm shadow-sm flex items-start justify-between">
-                            <div>
-                                <p className="text-sm text-gray-500 font-medium">{kpi.label}</p>
-                                <p className="text-2xl font-semibold text-gray-900 mt-1">{kpi.value}</p>
-                                <p className={`text-xs mt-2 ${kpi.isPositive ? 'text-green-600' : 'text-red-600'}`}>
-                                    {kpi.trend} from last month
-                                </p>
-                            </div>
-                            <div className="p-2 bg-gray-50 rounded-sm">
-                                <kpi.icon className="w-5 h-5 text-gray-400" />
-                            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {KPIS.map((kpi, idx) => (
+                    <div key={idx} className="bg-white dark:bg-[#212121] p-5 rounded-sm border border-gray-200 dark:border-transparent shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow cursor-pointer">
+                        <div className="flex justify-between items-start">
+                            <h3 className="text-sm font-medium text-gray-600 dark:text-[#aaaaaa]">{kpi.label}</h3>
+                            <kpi.icon className="w-4 h-4 text-gray-400 dark:text-[#717171]" />
                         </div>
-                    ))}
-                </div>
+                        <div className="mt-4">
+                            <span className="text-2xl font-bold text-gray-900 dark:text-white">{kpi.value}</span>
+                        </div>
+                        <div className="mt-2 text-xs font-medium">
+                            <span className={kpi.isPositive ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}>
+                                {kpi.trend}
+                            </span>
+                            <span className="text-gray-400 dark:text-[#717171] ml-1">from last month</span>
+                        </div>
+                    </div>
+                ))}
+            </div>
 
                 {/* Charts Area */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                    <div className="bg-white p-5 border border-gray-200 rounded-sm shadow-sm h-72 flex flex-col">
-                        <h3 className="text-sm font-semibold text-gray-800 mb-4">Revenue vs Expenses (Mock)</h3>
-                        <div className="flex-1 flex items-end gap-2 justify-between mt-auto">
-                            {[40, 65, 45, 80, 55, 95, 75, 110, 85, 120].map((h, i) => (
-                                <div key={i} className="w-full flex gap-1 items-end h-full">
-                                    <div className="w-1/2 bg-gray-800 rounded-t-sm" style={{ height: `${h}%` }}></div>
-                                    <div className="w-1/2 bg-gray-300 rounded-t-sm" style={{ height: `${h * 0.7}%` }}></div>
-                                </div>
-                            ))}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <div className="bg-white dark:bg-[#212121] p-5 rounded-sm border border-gray-200 dark:border-transparent shadow-sm">
+                    <h3 className="text-sm font-semibold text-gray-800 dark:text-white mb-4">Revenue vs Expenses (Mock)</h3>
+                    <div className="h-64 flex items-end justify-between gap-2 px-2 pb-6 pt-10 relative">
+                        {/* Y-axis mock labels */}
+                        <div className="absolute left-0 top-0 bottom-6 w-8 flex flex-col justify-between text-[10px] text-gray-400 dark:text-[#717171] items-end pr-1">
+                            <span>$3M</span>
+                            <span>$2M</span>
+                            <span>$1M</span>
+                            <span>$0</span>
                         </div>
-                        <div className="flex justify-between text-xs text-gray-400 mt-2">
+                        <div className="absolute left-8 right-0 bottom-6 border-b border-gray-200 dark:border-[#3f3f3f]"></div>
+                        {/* Chart Bars */}
+                        {[40, 60, 45, 80, 55, 100, 70, 110, 85, 120].map((h, i) => (
+                            <div key={i} className="flex-1 flex gap-1 items-end h-full z-10 ml-8" style={{ width: '10%' }}>
+                                <div className="w-1/2 bg-gray-800 dark:bg-white rounded-t-sm hover:opacity-80 transition-opacity" style={{ height: `${h}%` }}></div>
+                                <div className="w-1/2 bg-gray-300 dark:bg-[#4f4f4f] rounded-t-sm hover:opacity-80 transition-opacity" style={{ height: `${h * 0.7}%` }}></div>
+                            </div>
+                        ))}
+                        {/* X-axis labels */}
+                        <div className="absolute left-8 right-0 bottom-0 h-6 flex justify-between text-[10px] text-gray-400 dark:text-[#717171] pt-1">
                             <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span>
                         </div>
                     </div>
-                    
-                    <div className="bg-white p-5 border border-gray-200 rounded-sm shadow-sm h-72 flex flex-col">
-                        <h3 className="text-sm font-semibold text-gray-800 mb-4">Production Output (Units)</h3>
-                        <div className="flex-1 relative border-b border-l border-gray-200">
+                </div>
+
+                <div className="bg-white dark:bg-[#212121] p-5 rounded-sm border border-gray-200 dark:border-transparent shadow-sm">
+                    <h3 className="text-sm font-semibold text-gray-800 dark:text-white mb-4">Production Output (Units)</h3>
+                    <div className="h-64 relative flex items-end pb-6">
+                        <div className="w-full h-full relative">
                             {/* Simple line chart mockup using SVG */}
                             <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none">
-                                <polyline 
-                                    points="0,150 50,120 100,130 150,90 200,100 250,50 300,70 350,30" 
-                                    fill="none" 
-                                    stroke="currentColor" 
-                                    className="text-black"
-                                    strokeWidth="2" 
-                                    vectorEffect="non-scaling-stroke"
+                                <polyline
+                                    points="0,200 50,180 100,190 150,150 200,160 250,130 300,140 350,100"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    className="text-gray-800 dark:text-[#f1f1f1]"
+                                    strokeWidth="2"
                                 />
                             </svg>
                         </div>
-                        <div className="flex justify-between text-xs text-gray-400 mt-2">
+                        {/* X-axis labels */}
+                        <div className="absolute left-0 right-0 bottom-0 h-6 flex justify-between text-[10px] text-gray-400 dark:text-[#717171] pt-1">
                             <span>W1</span><span>W2</span><span>W3</span><span>W4</span><span>W5</span><span>W6</span><span>W7</span><span>W8</span>
                         </div>
                     </div>
                 </div>
-
-                {/* Tables & Alerts Area */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                    
-                    {/* Alerts Widget */}
-                    <div className="bg-white border border-gray-200 rounded-sm shadow-sm flex flex-col">
-                        <div className="px-4 py-3 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-                            <h3 className="text-sm font-semibold text-gray-800">Recent Alerts</h3>
-                            <span className="text-xs text-gray-500 cursor-pointer hover:text-black">View all</span>
-                        </div>
-                        <div className="divide-y divide-gray-100 flex-1 overflow-auto max-h-64">
-                            {ALERTS.map(alert => (
-                                <div key={alert.id} className="p-4 flex gap-3 hover:bg-gray-50 transition-colors">
-                                    <div className={`mt-0.5 w-2 h-2 rounded-full flex-shrink-0 ${alert.type === 'error' ? 'bg-red-500' : alert.type === 'warning' ? 'bg-orange-500' : 'bg-blue-500'}`} />
-                                    <div>
-                                        <p className="text-sm text-gray-700 leading-snug">{alert.message}</p>
-                                        <p className="text-xs text-gray-400 mt-1">{alert.time}</p>
-                                    </div>
+            </div>
+                {/* Bottom Section: Tables & Lists */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 pb-8">
+                {/* Alerts/Notifications */}
+                <div className="bg-white dark:bg-[#212121] p-5 rounded-sm border border-gray-200 dark:border-transparent shadow-sm">
+                    <div className="flex justify-between items-center mb-4">
+                        <h3 className="text-sm font-semibold text-gray-800 dark:text-white">Recent Alerts</h3>
+                        <button className="text-xs text-gray-500 hover:text-black dark:text-[#aaaaaa] dark:hover:text-white">View all</button>
+                    </div>
+                    <div className="space-y-4">
+                        {alerts.map(alert => (
+                            <div key={alert.id} className="flex gap-3 text-sm">
+                                <div className={`mt-0.5 w-2 h-2 rounded-full flex-shrink-0 ${alert.type === 'error' ? 'bg-red-500' : alert.type === 'warning' ? 'bg-orange-500' : 'bg-gray-500 dark:bg-white'}`} />
+                                <div>
+                                    <p className="text-gray-800 dark:text-[#f1f1f1] font-medium leading-tight">{alert.title}</p>
+                                    <p className="text-gray-500 dark:text-[#aaaaaa] text-xs mt-1">{alert.time}</p>
                                 </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Quick MO Status */}
+                <div className="bg-white dark:bg-[#212121] p-5 rounded-sm border border-gray-200 dark:border-transparent shadow-sm">
+                    <div className="flex justify-between items-center mb-4">
+                        <h3 className="text-sm font-semibold text-gray-800 dark:text-white">Active MOs</h3>
+                        <button className="text-xs text-gray-500 hover:text-black dark:text-[#aaaaaa] dark:hover:text-white">View all</button>
+                    </div>
+                    <table className="w-full text-sm text-left">
+                        <thead className="text-xs text-gray-500 dark:text-[#717171]">
+                            <tr>
+                                <th className="pb-2 font-medium">Order</th>
+                                <th className="pb-2 font-medium text-center">Status</th>
+                                <th className="pb-2 font-medium text-right">Progress</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-100 dark:divide-[#3f3f3f]">
+                            {manufacturingOrders.slice(0, 4).map(mo => (
+                                <tr key={mo.id}>
+                                    <td className="py-2">
+                                        <div className="font-medium text-gray-800 dark:text-white">{mo.orderNumber}</div>
+                                        <div className="text-xs text-gray-500 dark:text-[#aaaaaa] truncate w-32">{mo.productName}</div>
+                                    </td>
+                                    <td className="py-2 text-center">
+                                        <Badge variant={mo.status === 'Delayed' ? 'dark' : mo.status === 'Completed' ? 'outline' : 'default'} className="text-[10px] px-1.5 py-0">
+                                            {mo.status}
+                                        </Badge>
+                                    </td>
+                                    <td className="py-2 text-right">
+                                        <div className="w-16 h-1.5 bg-gray-100 dark:bg-[#3f3f3f] rounded-full ml-auto overflow-hidden">
+                                            <div className="h-full bg-black dark:bg-white" style={{ width: `${mo.progress}%` }}></div>
+                                        </div>
+                                    </td>
+                                </tr>
                             ))}
-                        </div>
-                    </div>
+                        </tbody>
+                    </table>
+                </div>
 
-                    {/* Active MOs */}
-                    <div className="bg-white border border-gray-200 rounded-sm shadow-sm flex flex-col lg:col-span-1">
-                        <div className="px-4 py-3 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-                            <h3 className="text-sm font-semibold text-gray-800">Active MOs</h3>
-                            <span className="text-xs text-gray-500 cursor-pointer hover:text-black">View all</span>
-                        </div>
-                        <div className="overflow-auto max-h-64">
-                            <table className="w-full text-sm text-left">
-                                <thead className="bg-white border-b border-gray-100 sticky top-0">
-                                    <tr>
-                                        <th className="px-4 py-2 font-medium text-gray-500">Order</th>
-                                        <th className="px-4 py-2 font-medium text-gray-500">Status</th>
-                                        <th className="px-4 py-2 font-medium text-gray-500">Progress</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-gray-50">
-                                    {RECENT_MOS.map(mo => (
-                                        <tr key={mo.id} className="hover:bg-gray-50 cursor-pointer">
-                                            <td className="px-4 py-2">
-                                                <div className="font-medium text-gray-800">{mo.orderNumber}</div>
-                                                <div className="text-xs text-gray-500 truncate w-24">{mo.productName}</div>
-                                            </td>
-                                            <td className="px-4 py-2">
-                                                <Badge variant={mo.status === 'In Production' ? 'success' : mo.status === 'Delayed' ? 'dark' : 'outline'}>
-                                                    {mo.status}
-                                                </Badge>
-                                            </td>
-                                            <td className="px-4 py-2">
-                                                <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
-                                                    <div className="bg-black h-full" style={{ width: `${mo.progress}%` }}></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
+                {/* Recent Purchase Orders */}
+                <div className="bg-white dark:bg-[#212121] p-5 rounded-sm border border-gray-200 dark:border-transparent shadow-sm">
+                    <div className="flex justify-between items-center mb-4">
+                        <h3 className="text-sm font-semibold text-gray-800 dark:text-white">Recent POs</h3>
+                        <button className="text-xs text-gray-500 hover:text-black dark:text-[#aaaaaa] dark:hover:text-white">View all</button>
                     </div>
-
-                    {/* Recent POs */}
-                    <div className="bg-white border border-gray-200 rounded-sm shadow-sm flex flex-col lg:col-span-1">
-                        <div className="px-4 py-3 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-                            <h3 className="text-sm font-semibold text-gray-800">Recent POs</h3>
-                            <span className="text-xs text-gray-500 cursor-pointer hover:text-black">View all</span>
-                        </div>
-                        <div className="overflow-auto max-h-64">
-                            <table className="w-full text-sm text-left">
-                                <thead className="bg-white border-b border-gray-100 sticky top-0">
-                                    <tr>
-                                        <th className="px-4 py-2 font-medium text-gray-500">Order</th>
-                                        <th className="px-4 py-2 font-medium text-gray-500">Status</th>
-                                        <th className="px-4 py-2 font-medium text-gray-500">Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-gray-50">
-                                    {RECENT_POS.map(po => (
-                                        <tr key={po.id} className="hover:bg-gray-50 cursor-pointer">
-                                            <td className="px-4 py-2">
-                                                <div className="font-medium text-gray-800">{po.id}</div>
-                                                <div className="text-xs text-gray-500 truncate w-24">{po.supplier}</div>
-                                            </td>
-                                            <td className="px-4 py-2">
-                                                <Badge variant={po.status === 'Ordered' ? 'default' : po.status === 'Expected' ? 'outline' : 'dark'}>
-                                                    {po.status}
-                                                </Badge>
-                                            </td>
-                                            <td className="px-4 py-2 font-medium text-gray-700">
-                                                {po.amount}
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
+                    <table className="w-full text-sm text-left">
+                        <thead className="text-xs text-gray-500 dark:text-[#717171]">
+                            <tr>
+                                <th className="pb-2 font-medium">Order</th>
+                                <th className="pb-2 font-medium">Status</th>
+                                <th className="pb-2 font-medium text-right">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-100 dark:divide-[#3f3f3f]">
+                            {purchaseOrders.slice(0, 4).map(po => (
+                                <tr key={po.id}>
+                                    <td className="py-2">
+                                        <div className="font-medium text-gray-800 dark:text-white">{po.poNumber}</div>
+                                        <div className="text-xs text-gray-500 dark:text-[#aaaaaa] truncate w-24">{po.supplierName}</div>
+                                    </td>
+                                    <td className="py-2">
+                                        <Badge variant="outline" className="text-[10px] px-1.5 py-0">{po.status}</Badge>
+                                    </td>
+                                    <td className="py-2 text-right font-medium text-gray-800 dark:text-white">
+                                        ${po.totalAmount.toLocaleString()}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

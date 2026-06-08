@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Icons } from '@/components/icons';
+import { sendChatMessage } from '@/app/actions/chat';
 
 interface Message {
     id: string;
@@ -20,6 +21,7 @@ export const DashboardAiView = () => {
         }
     ]);
     const [inputValue, setInputValue] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const [activeContext, setActiveContext] = useState<'overview' | 'sales' | 'production'>('overview');
     const chatEndRef = useRef<HTMLDivElement>(null);
 
@@ -27,9 +29,9 @@ export const DashboardAiView = () => {
         chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages]);
 
-    const handleSendMessage = (e?: React.FormEvent) => {
+    const handleSendMessage = async (e?: React.FormEvent) => {
         e?.preventDefault();
-        if (!inputValue.trim()) return;
+        if (!inputValue.trim() || isLoading) return;
 
         const userText = inputValue.trim();
         const newMsg: Message = {
@@ -39,38 +41,49 @@ export const DashboardAiView = () => {
             timestamp: new Date()
         };
 
-        setMessages(prev => [...prev, newMsg]);
+        const updatedMessages = [...messages, newMsg];
+        setMessages(updatedMessages);
         setInputValue('');
+        setIsLoading(true);
 
-        // Simple mock intelligence
-        setTimeout(() => {
-            const lowerText = userText.toLowerCase();
-            let aiText = "I've updated the dashboard view with the requested information.";
-            let nextContext = activeContext;
+        try {
+            const data = await sendChatMessage(updatedMessages);
+            
+            if (data.choices && data.choices.length > 0) {
+                let aiText = data.choices[0].message.content;
+                
+                // Parse tags for dashboard switching
+                if (aiText.includes('[DASHBOARD:SALES]')) {
+                    setActiveContext('sales');
+                    aiText = aiText.replace('[DASHBOARD:SALES]', '').trim();
+                } else if (aiText.includes('[DASHBOARD:PRODUCTION]')) {
+                    setActiveContext('production');
+                    aiText = aiText.replace('[DASHBOARD:PRODUCTION]', '').trim();
+                } else if (aiText.includes('[DASHBOARD:OVERVIEW]')) {
+                    setActiveContext('overview');
+                    aiText = aiText.replace('[DASHBOARD:OVERVIEW]', '').trim();
+                }
 
-            if (lowerText.includes('sales') || lowerText.includes('revenue') || lowerText.includes('order')) {
-                aiText = "Here is your sales and revenue overview. Platform sales are up by 12% compared to last month.";
-                nextContext = 'sales';
-            } else if (lowerText.includes('production') || lowerText.includes('manufactur') || lowerText.includes('output')) {
-                aiText = "I have pulled up the production metrics. Overall output is 4.2% above target.";
-                nextContext = 'production';
-            } else if (lowerText.includes('overview') || lowerText.includes('summary')) {
-                aiText = "Switching back to the general overview.";
-                nextContext = 'overview';
+                setMessages(prev => [...prev, {
+                    id: Date.now().toString(),
+                    sender: 'agent',
+                    text: aiText,
+                    timestamp: new Date()
+                }]);
             } else {
-                aiText = "I found some relevant data for your query. Let me know if you need more specific details like 'Sales' or 'Production'.";
+                throw new Error("Invalid response");
             }
-
-            const agentMsg: Message = {
-                id: (Date.now() + 1).toString(),
+        } catch (error) {
+            console.error("Error fetching from OpenRouter:", error);
+            setMessages(prev => [...prev, {
+                id: Date.now().toString(),
                 sender: 'agent',
-                text: aiText,
+                text: "Sorry, I encountered an error connecting to the AI server. Please try again later.",
                 timestamp: new Date()
-            };
-
-            setMessages(prev => [...prev, agentMsg]);
-            setActiveContext(nextContext);
-        }, 1000);
+            }]);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const renderDashboardContent = () => {
@@ -79,22 +92,22 @@ export const DashboardAiView = () => {
                 <div className="animate-in fade-in slide-in-from-bottom-2 duration-500">
                     <h2 className="text-xl font-semibold mb-6 text-gray-900 dark:text-white">Sales & Revenue Insights</h2>
                     <div className="grid grid-cols-2 gap-4 mb-6">
-                        <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800/30">
-                            <div className="text-sm text-blue-600 dark:text-blue-400 mb-1">Total Revenue (MTD)</div>
-                            <div className="text-2xl font-bold text-blue-900 dark:text-blue-100">$1,245,000</div>
-                            <div className="text-xs text-blue-500 mt-2 flex items-center gap-1"><Icons.TrendingUp className="w-3 h-3" /> +12% vs last month</div>
+                        <div className="bg-white dark:bg-[#212121] p-5 rounded-sm border border-gray-200 dark:border-transparent shadow-sm">
+                            <div className="text-sm text-gray-600 dark:text-[#aaaaaa] mb-1">Total Revenue (MTD)</div>
+                            <div className="text-2xl font-bold text-gray-900 dark:text-white">$1,245,000</div>
+                            <div className="text-xs text-green-600 dark:text-green-400 mt-2 flex items-center gap-1"><Icons.TrendingUp className="w-3 h-3" /> +12% <span className="text-gray-400 dark:text-[#717171]">vs last month</span></div>
                         </div>
-                        <div className="bg-emerald-50 dark:bg-emerald-900/20 p-4 rounded-lg border border-emerald-100 dark:border-emerald-800/30">
-                            <div className="text-sm text-emerald-600 dark:text-emerald-400 mb-1">Conversion Rate</div>
-                            <div className="text-2xl font-bold text-emerald-900 dark:text-emerald-100">4.2%</div>
-                            <div className="text-xs text-emerald-500 mt-2 flex items-center gap-1"><Icons.TrendingUp className="w-3 h-3" /> +0.5% vs last month</div>
+                        <div className="bg-white dark:bg-[#212121] p-5 rounded-sm border border-gray-200 dark:border-transparent shadow-sm">
+                            <div className="text-sm text-gray-600 dark:text-[#aaaaaa] mb-1">Conversion Rate</div>
+                            <div className="text-2xl font-bold text-gray-900 dark:text-white">4.2%</div>
+                            <div className="text-xs text-green-600 dark:text-green-400 mt-2 flex items-center gap-1"><Icons.TrendingUp className="w-3 h-3" /> +0.5% <span className="text-gray-400 dark:text-[#717171]">vs last month</span></div>
                         </div>
                     </div>
-                    <div className="bg-gray-50 dark:bg-[#222] rounded-lg p-5 border border-gray-100 dark:border-[#333] h-64 flex flex-col justify-between">
-                        <div className="text-sm font-medium text-gray-600 dark:text-gray-400">Revenue Trend (Last 7 Days)</div>
+                    <div className="bg-white dark:bg-[#212121] p-5 rounded-sm border border-gray-200 dark:border-transparent shadow-sm h-64 flex flex-col justify-between">
+                        <div className="text-sm font-semibold text-gray-800 dark:text-white">Revenue Trend (Last 7 Days)</div>
                         <div className="flex-1 flex items-end gap-2 pt-4">
                             {[40, 55, 45, 70, 65, 85, 95].map((h, i) => (
-                                <div key={i} className="flex-1 bg-blue-400 dark:bg-blue-500 rounded-t-sm hover:opacity-80 transition-opacity" style={{ height: `${h}%` }}></div>
+                                <div key={i} className="flex-1 bg-gray-800 dark:bg-white rounded-t-sm hover:opacity-80 transition-opacity" style={{ height: `${h}%` }}></div>
                             ))}
                         </div>
                     </div>
@@ -107,31 +120,31 @@ export const DashboardAiView = () => {
                 <div className="animate-in fade-in slide-in-from-bottom-2 duration-500">
                     <h2 className="text-xl font-semibold mb-6 text-gray-900 dark:text-white">Production Analytics</h2>
                     <div className="grid grid-cols-2 gap-4 mb-6">
-                        <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border border-purple-100 dark:border-purple-800/30">
-                            <div className="text-sm text-purple-600 dark:text-purple-400 mb-1">Total Output Units</div>
-                            <div className="text-2xl font-bold text-purple-900 dark:text-purple-100">12,450</div>
-                            <div className="text-xs text-purple-500 mt-2 flex items-center gap-1"><Icons.TrendingUp className="w-3 h-3" /> +4.2% vs target</div>
+                        <div className="bg-white dark:bg-[#212121] p-5 rounded-sm border border-gray-200 dark:border-transparent shadow-sm">
+                            <div className="text-sm text-gray-600 dark:text-[#aaaaaa] mb-1">Total Output Units</div>
+                            <div className="text-2xl font-bold text-gray-900 dark:text-white">12,450</div>
+                            <div className="text-xs text-green-600 dark:text-green-400 mt-2 flex items-center gap-1"><Icons.TrendingUp className="w-3 h-3" /> +4.2% <span className="text-gray-400 dark:text-[#717171]">vs target</span></div>
                         </div>
-                        <div className="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-lg border border-orange-100 dark:border-orange-800/30">
-                            <div className="text-sm text-orange-600 dark:text-orange-400 mb-1">Active MOs</div>
-                            <div className="text-2xl font-bold text-orange-900 dark:text-orange-100">24</div>
-                            <div className="text-xs text-orange-500 mt-2">3 delayed due to materials</div>
+                        <div className="bg-white dark:bg-[#212121] p-5 rounded-sm border border-gray-200 dark:border-transparent shadow-sm">
+                            <div className="text-sm text-gray-600 dark:text-[#aaaaaa] mb-1">Active MOs</div>
+                            <div className="text-2xl font-bold text-gray-900 dark:text-white">24</div>
+                            <div className="text-xs text-red-600 dark:text-red-400 mt-2">3 delayed <span className="text-gray-400 dark:text-[#717171]">due to materials</span></div>
                         </div>
                     </div>
-                    <div className="bg-gray-50 dark:bg-[#222] rounded-lg p-5 border border-gray-100 dark:border-[#333]">
-                        <div className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-4">Workstation Efficiency</div>
+                    <div className="bg-white dark:bg-[#212121] p-5 rounded-sm border border-gray-200 dark:border-transparent shadow-sm">
+                        <div className="text-sm font-semibold text-gray-800 dark:text-white mb-4">Workstation Efficiency</div>
                         <div className="space-y-4">
                             <div>
-                                <div className="flex justify-between text-xs mb-1"><span className="text-gray-600 dark:text-gray-400">Assembly Line A</span><span className="font-bold text-gray-900 dark:text-white">92%</span></div>
-                                <div className="w-full bg-gray-200 dark:bg-gray-700 h-1.5 rounded-full"><div className="bg-purple-500 h-1.5 rounded-full" style={{width: '92%'}}></div></div>
+                                <div className="flex justify-between text-xs mb-1"><span className="text-gray-600 dark:text-[#aaaaaa]">Assembly Line A</span><span className="font-bold text-gray-900 dark:text-white">92%</span></div>
+                                <div className="w-full bg-gray-100 dark:bg-[#3f3f3f] h-1.5 rounded-full overflow-hidden"><div className="bg-black dark:bg-white h-1.5" style={{width: '92%'}}></div></div>
                             </div>
                             <div>
-                                <div className="flex justify-between text-xs mb-1"><span className="text-gray-600 dark:text-gray-400">Welding Station</span><span className="font-bold text-gray-900 dark:text-white">85%</span></div>
-                                <div className="w-full bg-gray-200 dark:bg-gray-700 h-1.5 rounded-full"><div className="bg-purple-500 h-1.5 rounded-full" style={{width: '85%'}}></div></div>
+                                <div className="flex justify-between text-xs mb-1"><span className="text-gray-600 dark:text-[#aaaaaa]">Welding Station</span><span className="font-bold text-gray-900 dark:text-white">85%</span></div>
+                                <div className="w-full bg-gray-100 dark:bg-[#3f3f3f] h-1.5 rounded-full overflow-hidden"><div className="bg-black dark:bg-white h-1.5" style={{width: '85%'}}></div></div>
                             </div>
                             <div>
-                                <div className="flex justify-between text-xs mb-1"><span className="text-gray-600 dark:text-gray-400">Quality Control</span><span className="font-bold text-gray-900 dark:text-white">98%</span></div>
-                                <div className="w-full bg-gray-200 dark:bg-gray-700 h-1.5 rounded-full"><div className="bg-purple-500 h-1.5 rounded-full" style={{width: '98%'}}></div></div>
+                                <div className="flex justify-between text-xs mb-1"><span className="text-gray-600 dark:text-[#aaaaaa]">Quality Control</span><span className="font-bold text-gray-900 dark:text-white">98%</span></div>
+                                <div className="w-full bg-gray-100 dark:bg-[#3f3f3f] h-1.5 rounded-full overflow-hidden"><div className="bg-black dark:bg-white h-1.5" style={{width: '98%'}}></div></div>
                             </div>
                         </div>
                     </div>
@@ -141,7 +154,7 @@ export const DashboardAiView = () => {
 
         return (
             <div className="animate-in fade-in slide-in-from-bottom-2 duration-500 flex flex-col items-center justify-center h-full text-center">
-                <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mb-6">
+                <div className="w-16 h-16 bg-gray-100 dark:bg-[#333] text-gray-900 dark:text-white rounded-full flex items-center justify-center mb-6">
                     <Icons.Monitor className="w-8 h-8" />
                 </div>
                 <h2 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">ERP Assistant Dashboard</h2>
@@ -171,7 +184,7 @@ export const DashboardAiView = () => {
             {/* Right Panel: Chat Interface */}
             <div className="w-[400px] flex flex-col bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-[#333] rounded-xl shadow-sm overflow-hidden flex-shrink-0">
                 <div className="p-4 border-b border-gray-100 dark:border-[#333] bg-gray-50/50 dark:bg-[#151515] flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white">
+                    <div className="w-8 h-8 rounded-full bg-black dark:bg-white text-white dark:text-black flex items-center justify-center">
                         <Icons.Monitor className="w-4 h-4" />
                     </div>
                     <div>
@@ -185,15 +198,27 @@ export const DashboardAiView = () => {
                         const isAgent = msg.sender === 'agent';
                         return (
                             <div key={msg.id} className={`flex gap-3 ${isAgent ? '' : 'flex-row-reverse'}`}>
-                                <div className={`w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-medium ${isAgent ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white' : 'bg-gray-200 dark:bg-[#333] text-gray-700 dark:text-gray-300'}`}>
+                                <div className={`w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-medium ${isAgent ? 'bg-black dark:bg-white text-white dark:text-black' : 'bg-gray-200 dark:bg-[#333] text-gray-700 dark:text-gray-300'}`}>
                                     {isAgent ? <Icons.Monitor className="w-4 h-4" /> : 'JP'}
                                 </div>
-                                <div className={`p-3 rounded-2xl text-sm max-w-[75%] ${isAgent ? 'bg-blue-50 dark:bg-[#1a2333] text-blue-900 dark:text-[#a5c2f5] rounded-tl-sm' : 'bg-gray-100 dark:bg-[#272727] text-gray-800 dark:text-[#ddd] rounded-tr-sm'}`}>
+                                <div className={`p-3 rounded-2xl text-sm max-w-[75%] whitespace-pre-wrap ${isAgent ? 'bg-gray-100 dark:bg-[#272727] text-gray-900 dark:text-[#f1f1f1] rounded-tl-sm' : 'bg-gray-200 dark:bg-[#3f3f3f] text-gray-900 dark:text-[#f1f1f1] rounded-tr-sm'}`}>
                                     {msg.text}
                                 </div>
                             </div>
                         );
                     })}
+                    {isLoading && (
+                        <div className="flex gap-3">
+                            <div className="w-8 h-8 rounded-full flex-shrink-0 bg-black dark:bg-white text-white dark:text-black flex items-center justify-center">
+                                <Icons.Monitor className="w-4 h-4 animate-pulse" />
+                            </div>
+                            <div className="p-3 rounded-2xl text-sm max-w-[75%] bg-gray-100 dark:bg-[#272727] text-gray-900 dark:text-[#f1f1f1] rounded-tl-sm flex items-center gap-1.5">
+                                <div className="w-1.5 h-1.5 bg-black dark:bg-white rounded-full animate-bounce"></div>
+                                <div className="w-1.5 h-1.5 bg-black dark:bg-white rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                                <div className="w-1.5 h-1.5 bg-black dark:bg-white rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+                            </div>
+                        </div>
+                    )}
                     <div ref={chatEndRef} />
                 </div>
                 
@@ -203,12 +228,13 @@ export const DashboardAiView = () => {
                             type="text" 
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
+                            disabled={isLoading}
                             placeholder="Ask me anything..." 
-                            className="w-full bg-white dark:bg-[#222] border border-gray-300 dark:border-[#444] rounded-full py-2.5 pl-4 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white dark:text-[#eee] transition-all"
+                            className="w-full bg-white dark:bg-[#222] border border-gray-300 dark:border-[#444] rounded-full py-2.5 pl-4 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white dark:text-[#eee] transition-all disabled:opacity-50"
                         />
                         <button 
                             type="submit"
-                            disabled={!inputValue.trim()}
+                            disabled={!inputValue.trim() || isLoading}
                             className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 bg-black dark:bg-[#eee] text-white dark:text-black rounded-full hover:opacity-80 transition-opacity disabled:opacity-50"
                         >
                             <Icons.Send className="w-3.5 h-3.5" />

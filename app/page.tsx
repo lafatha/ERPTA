@@ -5,6 +5,7 @@ import { Icons } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { DataTable, COLUMNS } from '@/components/data-table';
 import { DetailDrawer } from '@/components/detail-drawer';
+import { CreateDrawer } from '@/components/create-drawer';
 import { ScheduleView } from '@/views/schedule-view';
 import { StatsView } from '@/views/stats-view';
 import { MpsView } from '@/views/manufacturing/mps-view';
@@ -66,6 +67,11 @@ import { PlatformOrdersView } from '@/views/platform/orders-view';
 import { PlatformUsersView } from '@/views/platform/users-view';
 import { GeneralSettingsView } from '@/views/settings/general-view';
 import { SecuritySettingsView } from '@/views/settings/security-view';
+import { CustomerView } from '@/views/sales/customer-view';
+import { ProcessView } from '@/views/sales/process-view';
+import { FulfillmentView } from '@/views/sales/fulfillment-view';
+import { BillingView } from '@/views/sales/billing-view';
+import { AnalyticsView as SalesAnalyticsView } from '@/views/sales/analytics-view';
 import { ManufacturingOrder } from '@/types';
 import { useMockDb } from '@/lib/mock-db-context';
 
@@ -76,10 +82,17 @@ export default function ERPApp() {
     const [activeModule, setActiveModule] = useState('Dashboard');
     const [activeTab, setActiveTab] = useState('Overview');
     const [selectedOrder, setSelectedOrder] = useState<ManufacturingOrder | null>(null);
+    const [isCreateOpen, setIsCreateOpen] = useState(false);
+
+    const handleCreateMO = (newOrder: any) => {
+        const id = `MO-${Math.floor(Math.random() * 100000)}`;
+        updateRecord('manufacturingOrders', id, { ...newOrder, id } as ManufacturingOrder);
+    };
 
     const MODULES = [
         { name: 'Dashboard', icon: Icons.LayoutDashboard },
         { name: 'Platform', icon: Icons.Server },
+        { name: 'Sales', icon: Icons.Tag },
         { name: 'Inventory', icon: Icons.Package },
         { name: 'Manufacturing', icon: Icons.Factory },
         { name: 'Procurement', icon: Icons.ShoppingCart },
@@ -95,6 +108,7 @@ export default function ERPApp() {
     const MODULE_TABS: Record<string, string[]> = {
         'Dashboard': ['Overview', 'Forecasting', 'AI'],
         'Platform': ['Overview', 'Orders', 'Users'],
+        'Sales': ['Customer', 'Process', 'Fulfillment', 'Billing', 'Analytics'],
         'Inventory': ['Inventory items', 'Transactions', 'Warehouses', 'Stock adjustments', 'Stock transfers', 'Cycle counts', 'Valuation', 'Analytics'],
         'Manufacturing': ['Manufacturing orders', 'Production schedule', 'MPS', 'Workstations', 'Workstation groups', 'BOM', 'Routings', 'Statistics'],
         'Procurement': ['Suppliers', 'Purchase requisitions', 'RFQs', 'Purchase orders', 'Goods receipts', 'Supplier evaluations', 'Contracts', 'Analytics'],
@@ -179,7 +193,7 @@ export default function ERPApp() {
                     <div className="px-6 py-4 flex items-center justify-between flex-shrink-0 bg-white border-b border-gray-100">
                         <div className="flex items-center gap-4">
 
-                            <Button className="bg-black text-white hover:bg-gray-800"><Icons.Plus className="w-4 h-4 mr-1.5" /> Create</Button>
+                            <Button onClick={() => setIsCreateOpen(true)} className="bg-black text-white hover:bg-gray-800"><Icons.Plus className="w-4 h-4 mr-1.5" /> Create</Button>
                         </div>
                         <div className="flex items-center gap-2">
                             <Button variant="outline"><Icons.Download className="w-4 h-4 mr-1.5 text-gray-500" /> PDF Export</Button>
@@ -195,6 +209,13 @@ export default function ERPApp() {
                     {activeModule === 'Dashboard' && activeTab === 'Forecasting' && <DashboardForecastingView />}
                     {activeModule === 'Dashboard' && activeTab === 'AI' && <DashboardAiView />}
                     
+                    {/* Sales Module */}
+                    {activeModule === 'Sales' && activeTab === 'Customer' && <CustomerView />}
+                    {activeModule === 'Sales' && activeTab === 'Process' && <ProcessView />}
+                    {activeModule === 'Sales' && activeTab === 'Fulfillment' && <FulfillmentView />}
+                    {activeModule === 'Sales' && activeTab === 'Billing' && <BillingView />}
+                    {activeModule === 'Sales' && activeTab === 'Analytics' && <SalesAnalyticsView />}
+
                     {/* Inventory Module */}
                     {activeModule === 'Inventory' && activeTab === 'Inventory items' && <InventoryItemsView />}
                     {activeModule === 'Inventory' && activeTab === 'Transactions' && <TransactionsView />}
@@ -281,6 +302,7 @@ export default function ERPApp() {
                     {/* Fallback for unbuilt tabs */}
                     {!(activeModule === 'Dashboard' && ['Overview', 'Forecasting', 'AI'].includes(activeTab)) && 
                      !(activeModule === 'Platform' && ['Overview', 'Orders', 'Users'].includes(activeTab)) && 
+                     !(activeModule === 'Sales' && ['Customer', 'Process', 'Fulfillment', 'Billing', 'Analytics'].includes(activeTab)) && 
                      !(activeModule === 'Inventory' && ['Inventory items', 'Transactions', 'Warehouses', 'Stock adjustments', 'Stock transfers', 'Cycle counts', 'Valuation', 'Analytics'].includes(activeTab)) &&
                      !(activeModule === 'Manufacturing' && ['Manufacturing orders', 'MPS', 'Production schedule', 'Workstations', 'Workstation groups', 'BOM', 'Routings', 'Statistics'].includes(activeTab)) &&
                      !(activeModule === 'Procurement' && ['Suppliers', 'Purchase requisitions', 'RFQs', 'Purchase orders', 'Goods receipts', 'Supplier evaluations', 'Contracts', 'Analytics'].includes(activeTab)) && 
@@ -302,6 +324,13 @@ export default function ERPApp() {
 
             {/* GLOBAL SLIDE-OUT DRAWER */}
             <DetailDrawer order={selectedOrder} onClose={() => setSelectedOrder(null)} />
+            <CreateDrawer
+                isOpen={isCreateOpen}
+                columns={COLUMNS.filter(c => c.accessorKey !== 'id')}
+                onClose={() => setIsCreateOpen(false)}
+                onSave={handleCreateMO}
+                title="Create Manufacturing Order"
+            />
 
         </div>
     );

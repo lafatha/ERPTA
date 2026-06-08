@@ -192,7 +192,7 @@ export function DataTable<T extends { id: string | number }>({ data, columns, on
                                 </div>
                             </th>
                             {columns.map((col, idx) => (
-                                <th key={col.accessorKey} className={`px-3 py-2 border-b border-gray-200 dark:border-[#3f3f3f] font-medium text-gray-600 dark:text-[#f1f1f1] select-none ${col.width}`}>
+                                <th key={String(col.accessorKey)} className={`px-3 py-2 border-b border-gray-200 dark:border-[#3f3f3f] font-medium text-gray-600 dark:text-[#f1f1f1] select-none ${col.width}`}>
                                     <div className="flex items-center gap-1 cursor-pointer hover:text-black dark:hover:text-white group" onClick={() => requestSort(col.accessorKey)}>
                                         {col.header}
                                         <span className="text-gray-300 dark:text-[#717171] group-hover:text-gray-500 dark:group-hover:text-white w-3 h-3">
@@ -217,7 +217,7 @@ export function DataTable<T extends { id: string | number }>({ data, columns, on
                                 </div>
                             </td>
                             {columns.map((col) => (
-                                <td key={`filter-${col.accessorKey}`} className={`px-1.5 border-b border-gray-200 dark:border-[#3f3f3f] align-top ${showFilters ? 'py-1.5' : 'py-0'}`}>
+                                <td key={`filter-${String(col.accessorKey)}`} className={`px-1.5 border-b border-gray-200 dark:border-[#3f3f3f] align-top ${showFilters ? 'py-1.5' : 'py-0'}`}>
                                     <FilterCell column={col} />
                                 </td>
                             ))}
@@ -237,7 +237,7 @@ export function DataTable<T extends { id: string | number }>({ data, columns, on
                                     </div>
                                 </td>
                                 {columns.map(col => (
-                                    <td key={col.accessorKey} className="px-3 py-1.5">
+                                    <td key={String(col.accessorKey)} className="px-3 py-1.5">
                                         {col.render ? col.render(row[col.accessorKey], row) : <span className="text-gray-800 dark:text-[#aaaaaa]">{row[col.accessorKey] as React.ReactNode}</span>}
                                     </td>
                                 ))}

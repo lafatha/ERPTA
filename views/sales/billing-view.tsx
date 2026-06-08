@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { DataTable } from '@/components/data-table';
+import { DataTable, ColumnDef } from '@/components/data-table';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Icons } from '@/components/icons';
@@ -13,7 +13,7 @@ const BILLING_DATA = [
     { id: 'INV-4005', orderId: 'SO-1002', customer: 'TechFlow', issueDate: '2026-06-08', dueDate: '2026-07-08', amount: 1250, status: 'Unpaid' },
 ];
 
-const COLUMNS = [
+const COLUMNS: ColumnDef<any>[] = [
     { header: 'Invoice ID', accessorKey: 'id' },
     { header: 'Order ID', accessorKey: 'orderId' },
     { header: 'Customer', accessorKey: 'customer' },
@@ -22,12 +22,12 @@ const COLUMNS = [
     { 
         header: 'Amount', 
         accessorKey: 'amount',
-        cell: (item: any) => `$${item.amount.toLocaleString()}`
+        render: (value: any, item: any) => `$${item.amount.toLocaleString()}`
     },
     { 
         header: 'Status', 
         accessorKey: 'status',
-        cell: (item: any) => {
+        render: (value: any, item: any) => {
             const isDark = document.documentElement.classList.contains('dark');
             const colorClass = item.status === 'Paid' ? (isDark ? 'text-green-400 border-green-400' : 'text-green-600 border-green-600 bg-green-50') : 
                              item.status === 'Overdue' ? (isDark ? 'text-red-400 border-red-400' : 'text-red-600 border-red-600 bg-red-50') : '';

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { DataTable } from '@/components/data-table';
+import { DataTable, ColumnDef } from '@/components/data-table';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Icons } from '@/components/icons';
@@ -13,7 +13,7 @@ const FULFILLMENT_DATA = [
     { id: 'SHP-2004', orderId: 'SO-1004', customer: 'Retail Plus', targetDate: '2026-06-05', status: 'Packed', priority: 'Normal' },
 ];
 
-const COLUMNS = [
+const COLUMNS: ColumnDef<any>[] = [
     { header: 'Shipment ID', accessorKey: 'id' },
     { header: 'Order ID', accessorKey: 'orderId' },
     { header: 'Customer', accessorKey: 'customer' },
@@ -21,14 +21,14 @@ const COLUMNS = [
     { 
         header: 'Priority', 
         accessorKey: 'priority',
-        cell: (item: any) => (
+        render: (value: any, item: any) => (
             <span className={item.priority === 'High' ? 'text-red-500 font-medium' : ''}>{item.priority}</span>
         )
     },
     { 
         header: 'Status', 
         accessorKey: 'status',
-        cell: (item: any) => {
+        render: (value: any, item: any) => {
             const variant = item.status === 'Delivered' ? 'outline' : item.status === 'Pending' ? 'secondary' : 'default';
             return <Badge variant={variant}>{item.status}</Badge>;
         }

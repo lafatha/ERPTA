@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { DataTable } from '@/components/data-table';
+import { DataTable, ColumnDef } from '@/components/data-table';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Icons } from '@/components/icons';
@@ -15,21 +15,21 @@ const CUSTOMERS_DATA = [
     { id: '5', name: 'Nexus Industries', segment: 'Enterprise', status: 'Active', spend: 215000, lastOrder: '2026-06-08' },
 ];
 
-const COLUMNS = [
+const COLUMNS: ColumnDef<any>[] = [
     { header: 'Customer Name', accessorKey: 'name' },
     { header: 'Segment', accessorKey: 'segment' },
     { header: 'Last Order', accessorKey: 'lastOrder' },
     { 
         header: 'Status', 
         accessorKey: 'status',
-        cell: (item: any) => (
+        render: (value: any, item: any) => (
             <Badge variant={item.status === 'Active' ? 'default' : 'outline'}>{item.status}</Badge>
         )
     },
     { 
         header: 'Total Spend', 
         accessorKey: 'spend',
-        cell: (item: any) => `$${item.spend.toLocaleString()}`
+        render: (value: any, item: any) => `$${item.spend.toLocaleString()}`
     },
 ];
 

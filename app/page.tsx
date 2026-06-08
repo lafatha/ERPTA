@@ -76,7 +76,7 @@ import { ManufacturingOrder } from '@/types';
 import { useMockDb } from '@/lib/mock-db-context';
 
 export default function ERPApp() {
-    const { state } = useMockDb();
+    const { state, updateRecord } = useMockDb();
     const { manufacturingOrders } = state;
 
     const [activeModule, setActiveModule] = useState('Dashboard');

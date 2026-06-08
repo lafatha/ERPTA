@@ -3,16 +3,21 @@
 import React, { useState } from 'react';
 import { Icons } from '@/components/icons';
 import { Button } from '@/components/ui/button';
-import { DataTable } from '@/components/data-table';
+import { DataTable, COLUMNS } from '@/components/data-table';
 import { DetailDrawer } from '@/components/detail-drawer';
 import { ScheduleView } from '@/views/schedule-view';
 import { StatsView } from '@/views/stats-view';
+import { DashboardView } from '@/views/dashboard-view';
+import { InventoryItemsView } from '@/views/inventory/items-view';
 import { ManufacturingOrder } from '@/types';
-import { MOCK_DATA } from '@/lib/mock-data';
+import { useMockDb } from '@/lib/mock-db-context';
 
 export default function ERPApp() {
-    const [activeModule, setActiveModule] = useState('Manufacturing');
-    const [activeTab, setActiveTab] = useState('Manufacturing orders');
+    const { state } = useMockDb();
+    const { manufacturingOrders } = state;
+
+    const [activeModule, setActiveModule] = useState('Dashboard');
+    const [activeTab, setActiveTab] = useState('Overview');
     const [selectedOrder, setSelectedOrder] = useState<ManufacturingOrder | null>(null);
 
     const MODULES = [
@@ -26,10 +31,24 @@ export default function ERPApp() {
         { name: 'Calendar', icon: Icons.Calendar },
     ];
 
-    const TABS = [
-        'Manufacturing orders', 'Production schedule', 'MPS', 'Workstations',
-        'Workstation groups', 'BOM', 'Routings', 'Statistics'
-    ];
+    const MODULE_TABS: Record<string, string[]> = {
+        'Dashboard': ['Overview'],
+        'Inventory': ['Inventory items', 'Transactions', 'Warehouses', 'Stock adjustments', 'Stock transfers', 'Cycle counts', 'Valuation', 'Analytics'],
+        'Manufacturing': ['Manufacturing orders', 'Production schedule', 'MPS', 'Workstations', 'Workstation groups', 'BOM', 'Routings', 'Statistics'],
+        'Procurement': ['Suppliers', 'Purchase requisitions', 'RFQs', 'Purchase orders', 'Goods receipts', 'Supplier evaluations', 'Contracts', 'Analytics'],
+        'CRM': ['Leads', 'Accounts', 'Contacts', 'Opportunities', 'Activities', 'Sales pipeline', 'Quotations', 'Analytics'],
+        'Projects': ['Portfolios', 'Tasks', 'Milestones', 'Budgets', 'Team', 'Analytics'],
+        'Reports': ['Financial', 'Inventory', 'Procurement', 'Manufacturing', 'Sales'],
+        'Calendar': ['Events'],
+    };
+
+    const TABS = MODULE_TABS[activeModule] || [];
+
+    const handleModuleChange = (modName: string) => {
+        setActiveModule(modName);
+        setActiveTab(MODULE_TABS[modName]?.[0] || '');
+        setSelectedOrder(null);
+    };
 
     return (
         <div className="flex flex-col h-screen w-full bg-white text-gray-900 font-sans overflow-hidden antialiased">
@@ -37,14 +56,10 @@ export default function ERPApp() {
             {/* TOP NAVBAR (Modules & Search) */}
             <header className="h-14 border-b border-gray-200 flex items-center justify-between px-4 bg-white flex-shrink-0 z-20">
                 <div className="flex items-center gap-1 h-full">
-                    <button className="w-9 h-9 flex items-center justify-center text-gray-500 hover:text-black hover:bg-gray-50 rounded-sm transition-colors mr-1">
-                        <Icons.ChevronLeft className="w-4 h-4" />
-                    </button>
-                    <div className="w-px h-6 bg-gray-200 mx-2"></div>
                     {MODULES.map(mod => (
                         <button
                             key={mod.name}
-                            onClick={() => setActiveModule(mod.name)}
+                            onClick={() => handleModuleChange(mod.name)}
                             title={mod.name}
                             className={`w-9 h-9 flex items-center justify-center rounded-sm transition-colors ${activeModule === mod.name ? 'bg-gray-100 text-black' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'}`}
                         >
@@ -110,11 +125,20 @@ export default function ERPApp() {
 
                 {/* Dynamic View Area */}
                 <div className="flex-1 overflow-hidden">
-                    {activeTab === 'Manufacturing orders' && <DataTable data={MOCK_DATA} onRowClick={setSelectedOrder} />}
-                    {activeTab === 'Production schedule' && <ScheduleView />}
-                    {activeTab === 'Statistics' && <StatsView />}
+                    {activeModule === 'Dashboard' && activeTab === 'Overview' && <DashboardView />}
+                    
+                    {/* Inventory Module */}
+                    {activeModule === 'Inventory' && activeTab === 'Inventory items' && <InventoryItemsView />}
+
+                    {/* Manufacturing Module */}
+                    {activeModule === 'Manufacturing' && activeTab === 'Manufacturing orders' && <DataTable data={manufacturingOrders} columns={COLUMNS} onRowClick={setSelectedOrder} />}
+                    {activeModule === 'Manufacturing' && activeTab === 'Production schedule' && <ScheduleView />}
+                    {activeModule === 'Manufacturing' && activeTab === 'Statistics' && <StatsView />}
+                    
                     {/* Fallback for unbuilt tabs */}
-                    {!['Manufacturing orders', 'Production schedule', 'Statistics'].includes(activeTab) && (
+                    {!(activeModule === 'Dashboard' && activeTab === 'Overview') && 
+                     !(activeModule === 'Inventory' && ['Inventory items'].includes(activeTab)) &&
+                     !(activeModule === 'Manufacturing' && ['Manufacturing orders', 'Production schedule', 'Statistics'].includes(activeTab)) && (
                         <div className="h-full flex items-center justify-center flex-col text-gray-400">
                             <Icons.Factory className="w-12 h-12 mb-4 opacity-20" />
                             <p>The <span className="font-medium text-gray-600">{activeTab}</span> view is under construction.</p>

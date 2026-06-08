@@ -9,12 +9,13 @@ import { Select } from './ui/select';
 import { Badge } from './ui/badge';
 import { STATUSES, PARTS_STATUSES } from '@/lib/mock-data';
 
-interface ColumnDef {
+export interface ColumnDef<T = any> {
     header: string;
-    accessorKey: keyof ManufacturingOrder;
+    accessorKey: keyof T;
     width?: string;
-    type?: 'text' | 'number' | 'date' | 'status' | 'badge';
-    render?: (value: any, row: ManufacturingOrder) => React.ReactNode;
+    type?: 'text' | 'number' | 'date' | 'select' | 'status' | 'badge';
+    options?: string[];
+    render?: (value: any, row: T) => React.ReactNode;
 }
 
 export const COLUMNS: ColumnDef[] = [
@@ -48,15 +49,15 @@ export const COLUMNS: ColumnDef[] = [
     { header: 'Factory', accessorKey: 'factory', width: 'w-32', render: (val) => <span className="text-gray-500 truncate block">{val}</span> },
 ];
 
-export const DataTable = ({ data, onRowClick }: { data: ManufacturingOrder[], onRowClick: (order: ManufacturingOrder) => void }) => {
-    const [sortConfig, setSortConfig] = useState<{ key: keyof ManufacturingOrder, direction: 'asc' | 'desc' } | null>(null);
+export function DataTable<T extends { id: string | number }>({ data, columns, onRowClick }: { data: T[], columns: ColumnDef<T>[], onRowClick?: (row: T) => void }) {
+    const [sortConfig, setSortConfig] = useState<{ key: keyof T, direction: 'asc' | 'desc' } | null>(null);
     const [filters, setFilters] = useState<Record<string, any>>({});
     const [page, setPage] = useState(1);
     const rowsPerPage = 25;
-    const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
+    const [selectedRows, setSelectedRows] = useState<Set<string | number>>(new Set());
 
     // Handle Sorting
-    const requestSort = (key: keyof ManufacturingOrder) => {
+    const requestSort = (key: keyof T) => {
         let direction: 'asc' | 'desc' = 'asc';
         if (sortConfig && sortConfig.key === key && sortConfig.direction === 'asc') {
             direction = 'desc';
@@ -83,7 +84,7 @@ export const DataTable = ({ data, onRowClick }: { data: ManufacturingOrder[], on
         Object.keys(filters).forEach(key => {
             const filter = filters[key];
             sortableItems = sortableItems.filter(item => {
-                const itemValue = item[key as keyof ManufacturingOrder];
+                const itemValue = item[key as keyof T];
 
                 if (filter.text) {
                     return String(itemValue).toLowerCase().includes(String(filter.text).toLowerCase());
@@ -119,14 +120,14 @@ export const DataTable = ({ data, onRowClick }: { data: ManufacturingOrder[], on
     const paginatedData = processedData.slice((page - 1) * rowsPerPage, page * rowsPerPage);
 
     const toggleSelectAll = () => {
-        if (selectedRows.size === paginatedData.length) {
+        if (selectedRows.size === paginatedData.length && paginatedData.length > 0) {
             setSelectedRows(new Set());
         } else {
             setSelectedRows(new Set(paginatedData.map(d => d.id)));
         }
     };
 
-    const toggleSelectRow = (e: any, id: string) => {
+    const toggleSelectRow = (e: any, id: string | number) => {
         e.stopPropagation();
         const newSelected = new Set(selectedRows);
         if (newSelected.has(id)) newSelected.delete(id);
@@ -135,7 +136,7 @@ export const DataTable = ({ data, onRowClick }: { data: ManufacturingOrder[], on
     };
 
     // Filter Row Component
-    const FilterCell = ({ column }: { column: ColumnDef }) => {
+    const FilterCell = ({ column }: { column: ColumnDef<T> }) => {
         if (column.type === 'number') {
             return (
                 <div className="flex gap-1">
@@ -158,10 +159,10 @@ export const DataTable = ({ data, onRowClick }: { data: ManufacturingOrder[], on
                 </div>
             );
         }
-        if (column.accessorKey === 'status' || column.accessorKey === 'partsStatus') {
-            const options = column.accessorKey === 'status' ? STATUSES : PARTS_STATUSES;
+        if (column.type === 'select' || column.options) {
+            const options = column.options || [];
             return (
-                <Select className="text-xs h-6 px-1 py-0" onChange={(e: any) => handleFilterChange(column.accessorKey, e.target.value, 'select')}>
+                <Select className="text-xs h-6 px-1 py-0" onChange={(e: any) => handleFilterChange(column.accessorKey as string, e.target.value, 'select')}>
                     <option value="all">All</option>
                     {options.map(o => <option key={o} value={o}>{o}</option>)}
                 </Select>
@@ -183,7 +184,7 @@ export const DataTable = ({ data, onRowClick }: { data: ManufacturingOrder[], on
                             <th className="w-10 px-3 py-2 border-b border-gray-200">
                                 <input type="checkbox" className="rounded-none border-gray-300 text-black focus:ring-black" checked={selectedRows.size === paginatedData.length && paginatedData.length > 0} onChange={toggleSelectAll} />
                             </th>
-                            {COLUMNS.map((col, idx) => (
+                            {columns.map((col, idx) => (
                                 <th key={col.accessorKey} className={`px-3 py-2 border-b border-gray-200 font-medium text-gray-600 select-none ${col.width}`}>
                                     <div className="flex items-center gap-1 cursor-pointer hover:text-black group" onClick={() => requestSort(col.accessorKey)}>
                                         {col.header}
@@ -199,7 +200,7 @@ export const DataTable = ({ data, onRowClick }: { data: ManufacturingOrder[], on
                             <td className="px-3 py-1.5 border-b border-gray-200 text-center text-gray-400">
                                 <Icons.Filter className="w-3.5 h-3.5 mx-auto" />
                             </td>
-                            {COLUMNS.map((col) => (
+                            {columns.map((col) => (
                                 <td key={`filter-${col.accessorKey}`} className="px-1.5 py-1.5 border-b border-gray-200 align-top">
                                     <FilterCell column={col} />
                                 </td>
@@ -211,8 +212,8 @@ export const DataTable = ({ data, onRowClick }: { data: ManufacturingOrder[], on
                             <td className="px-3 py-1.5 border-b border-gray-200">Total:</td>
                             <td className="px-3 py-1.5 border-b border-gray-200"></td>
                             <td className="px-3 py-1.5 border-b border-gray-200"></td>
-                            <td className="px-3 py-1.5 border-b border-gray-200">{processedData.reduce((acc, curr) => acc + curr.quantity, 0).toLocaleString()}</td>
-                            <td colSpan={8} className="px-3 py-1.5 border-b border-gray-200 text-right text-gray-500">Filtered: {processedData.length} records</td>
+                            <td className="px-3 py-1.5 border-b border-gray-200">{processedData.reduce((acc, curr) => acc + (Number(curr['quantity' as keyof T]) || 0), 0).toLocaleString()}</td>
+                            <td colSpan={columns.length - 3} className="px-3 py-1.5 border-b border-gray-200 text-right text-gray-500">Filtered: {processedData.length} records</td>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100">
@@ -220,7 +221,7 @@ export const DataTable = ({ data, onRowClick }: { data: ManufacturingOrder[], on
                             <tr
                                 key={row.id}
                                 className={`hover:bg-gray-50 cursor-pointer group transition-colors ${selectedRows.has(row.id) ? 'bg-gray-50' : ''}`}
-                                onClick={() => onRowClick(row)}
+                                onClick={() => onRowClick && onRowClick(row)}
                             >
                                 <td className="px-3 py-1.5" onClick={(e) => e.stopPropagation()}>
                                     <div className="flex items-center gap-2 text-gray-400">
@@ -228,7 +229,7 @@ export const DataTable = ({ data, onRowClick }: { data: ManufacturingOrder[], on
                                         <input type="checkbox" className="rounded-none border-gray-300 text-black focus:ring-black" checked={selectedRows.has(row.id)} onChange={(e) => toggleSelectRow(e, row.id)} />
                                     </div>
                                 </td>
-                                {COLUMNS.map(col => (
+                                {columns.map(col => (
                                     <td key={col.accessorKey} className="px-3 py-1.5">
                                         {col.render ? col.render(row[col.accessorKey], row) : <span className="text-gray-800">{row[col.accessorKey] as React.ReactNode}</span>}
                                     </td>
@@ -236,7 +237,7 @@ export const DataTable = ({ data, onRowClick }: { data: ManufacturingOrder[], on
                             </tr>
                         )) : (
                             <tr>
-                                <td colSpan={COLUMNS.length + 1} className="h-64 text-center text-gray-400">No records found matching filters.</td>
+                                <td colSpan={columns.length + 1} className="h-64 text-center text-gray-400">No records found matching filters.</td>
                             </tr>
                         )}
                     </tbody>

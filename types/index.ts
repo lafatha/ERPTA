@@ -19,3 +19,16 @@ export interface ManufacturingOrder {
     factory: string;
     progress: number;
 }
+
+export interface InventoryItem {
+    id: string;
+    sku: string;
+    name: string;
+    category: string;
+    stockLevel: number;
+    unit: string;
+    reorderPoint: number;
+    valuationMethod: 'FIFO' | 'LIFO' | 'Average Cost' | 'Standard Cost';
+    warehouse: string;
+    status: 'In Stock' | 'Low Stock' | 'Out of Stock';
+}

@@ -23,7 +23,7 @@ export const PipelineView = () => {
                                     {stage}
                                     <span className="bg-gray-200 text-gray-600 text-xs py-0.5 px-2 rounded-full">{oppsInStage.length}</span>
                                 </h3>
-                                <p className="text-sm text-gray-500 mt-1">${stageValue.toLocaleString()}</p>
+                                <p className="text-sm text-gray-500 mt-1">Rp {stageValue.toLocaleString('id-ID')}</p>
                             </div>
                             
                             <div className="p-2 overflow-y-auto flex-1 space-y-2">
@@ -32,7 +32,7 @@ export const PipelineView = () => {
                                         <h4 className="font-medium text-gray-900 text-sm truncate">{opp.title}</h4>
                                         <p className="text-xs text-gray-500 mt-1">{opp.accountName}</p>
                                         <div className="flex justify-between items-center mt-3 text-xs">
-                                            <span className="font-semibold text-green-600">${opp.value.toLocaleString()}</span>
+                                            <span className="font-semibold text-green-600">Rp {opp.value.toLocaleString('id-ID')}</span>
                                             <span className="bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded-sm">{opp.probability}%</span>
                                         </div>
                                     </div>

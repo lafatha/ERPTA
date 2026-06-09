@@ -17,8 +17,8 @@ export const DashboardView = () => {
     const activeCustomers = customers.filter(c => c.status === 'Active').length;
 
     const KPIS = [
-        { label: 'Monthly Revenue', value: '$2.4M', trend: '+12%', isPositive: true, icon: Icons.BarChart },
-        { label: 'Inventory Value', value: '$854k', trend: '-2%', isPositive: false, icon: Icons.Package },
+        { label: 'Monthly Revenue', value: 'Rp 36.000.000.000', trend: '+12%', isPositive: true, icon: Icons.BarChart },
+        { label: 'Inventory Value', value: 'Rp 12.800.000.000', trend: '-2%', isPositive: false, icon: Icons.Package },
         { label: 'Active MOs', value: activeMOs.toString(), trend: '+5', isPositive: true, icon: Icons.Factory },
         { label: 'Open POs', value: openPOs.toString(), trend: '-3', isPositive: true, icon: Icons.ShoppingCart },
         { label: 'Active Customers', value: activeCustomers.toString(), trend: '+12', isPositive: true, icon: Icons.Users },
@@ -31,14 +31,14 @@ export const DashboardView = () => {
     const RECENT_POS = purchaseOrders.slice(0, 4);
 
     const ALERTS = [
-        { id: 1, type: 'error', message: 'MO20514 delayed due to material shortage (Copper Wire).', time: '2h ago' },
-        { id: 2, type: 'warning', message: 'Low stock alert: Hydraulic Fluid (Current: 12L, Min: 20L).', time: '4h ago' },
+        { id: 1, type: 'error', message: 'MO20514 delayed due to material shortage (Oak Wood Panels).', time: '2h ago' },
+        { id: 2, type: 'warning', message: 'Low stock alert: Clear Varnish (Current: 12L, Min: 20L).', time: '4h ago' },
     ];
 
     const alerts = [
-        { id: 1, type: 'error', title: 'MO20514 delayed', message: 'Material shortage (Copper Wire).', time: '2h ago' },
-        { id: 2, type: 'warning', title: 'Low stock alert', message: 'Hydraulic Fluid (Current: 12L).', time: '4h ago' },
-        { id: 3, type: 'info', title: 'Supplier update', message: 'TechCorp Parts updated PO10299.', time: '5h ago' },
+        { id: 1, type: 'error', title: 'MO20514 delayed', message: 'Material shortage (Oak Wood Panels).', time: '2h ago' },
+        { id: 2, type: 'warning', title: 'Low stock alert', message: 'Clear Varnish (Current: 12L).', time: '4h ago' },
+        { id: 3, type: 'info', title: 'Supplier update', message: 'PT Kayu Jati Rimba updated PO-2026-102.', time: '5h ago' },
     ];
 
     if (!mounted) {
@@ -83,10 +83,10 @@ export const DashboardView = () => {
                     <div className="h-64 flex items-end justify-between gap-2 px-2 pb-6 pt-10 relative">
                         {/* Y-axis mock labels */}
                         <div className="absolute left-0 top-0 bottom-6 w-8 flex flex-col justify-between text-[10px] text-gray-400 dark:text-[#717171] items-end pr-1">
-                            <span>$3M</span>
-                            <span>$2M</span>
-                            <span>$1M</span>
-                            <span>$0</span>
+                            <span>Rp 45 M</span>
+                            <span>Rp 30 M</span>
+                            <span>Rp 15 M</span>
+                            <span>Rp 0</span>
                         </div>
                         <div className="absolute left-8 right-0 bottom-6 border-b border-gray-200 dark:border-[#3f3f3f]"></div>
                         {/* Chart Bars */}
@@ -208,7 +208,7 @@ export const DashboardView = () => {
                                         <Badge variant="outline" className="text-[10px] px-1.5 py-0">{po.status}</Badge>
                                     </td>
                                     <td className="py-2 text-right font-medium text-gray-800 dark:text-white">
-                                        ${po.totalAmount.toLocaleString()}
+                                        Rp {po.totalAmount.toLocaleString('id-ID')}
                                     </td>
                                 </tr>
                             ))}

@@ -8,7 +8,7 @@ export const StatsView = () => (
             {[
                 { label: 'OEE (Overall Equipment Effectiveness)', value: '78.4%', trend: '+2.1%' },
                 { label: 'Delayed Orders', value: '14', trend: '-3' },
-                { label: 'Total Production Value', value: '$1.2M', trend: '+$50k' },
+                { label: 'Total Production Value', value: 'Rp 18.000.000.000', trend: '+Rp 750.000.000' },
             ].map(kpi => (
                 <div key={kpi.label} className="bg-white p-5 border border-gray-200 rounded-sm shadow-sm">
                     <div className="text-sm text-gray-500 mb-2">{kpi.label}</div>

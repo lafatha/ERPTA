@@ -36,7 +36,7 @@ export const PlatformOverviewView = () => {
                         <Icons.DollarSign className="w-4 h-4 text-gray-400 dark:text-[#717171]" />
                     </div>
                     <div className="mt-4">
-                        <span className="text-2xl font-bold text-gray-900 dark:text-white">$45,200</span>
+                        <span className="text-2xl font-bold text-gray-900 dark:text-white">Rp 678.000.000</span>
                     </div>
                     <div className="mt-2 text-xs font-medium">
                         <span className="text-green-600 dark:text-green-400">+8%</span>
@@ -81,21 +81,21 @@ export const PlatformOverviewView = () => {
                         <div className="flex justify-between items-center">
                             <div className="flex items-center gap-3">
                                 <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-[#3f3f3f] flex items-center justify-center text-sm font-bold text-gray-700 dark:text-[#f1f1f1]">A</div>
-                                <span className="text-sm font-medium text-gray-700 dark:text-[#f1f1f1]">Alice Smith</span>
+                                <span className="text-sm font-medium text-gray-700 dark:text-[#f1f1f1]">PT Amanah Properti Hotel</span>
                             </div>
                             <span className="text-sm font-bold text-gray-900 dark:text-white">12 Orders</span>
                         </div>
                         <div className="flex justify-between items-center">
                             <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-[#3f3f3f] flex items-center justify-center text-sm font-bold text-gray-700 dark:text-[#f1f1f1]">C</div>
-                                <span className="text-sm font-medium text-gray-700 dark:text-[#f1f1f1]">Charlie Davis</span>
+                                <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-[#3f3f3f] flex items-center justify-center text-sm font-bold text-gray-700 dark:text-[#f1f1f1]">D</div>
+                                <span className="text-sm font-medium text-gray-700 dark:text-[#f1f1f1]">PT Desain Interior Prima</span>
                             </div>
                             <span className="text-sm font-bold text-gray-900 dark:text-white">8 Orders</span>
                         </div>
                         <div className="flex justify-between items-center">
                             <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-[#3f3f3f] flex items-center justify-center text-sm font-bold text-gray-700 dark:text-[#f1f1f1]">B</div>
-                                <span className="text-sm font-medium text-gray-700 dark:text-[#f1f1f1]">Bob Johnson</span>
+                                <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-[#3f3f3f] flex items-center justify-center text-sm font-bold text-gray-700 dark:text-[#f1f1f1]">R</div>
+                                <span className="text-sm font-medium text-gray-700 dark:text-[#f1f1f1]">PT Ruang Kerja Modern</span>
                             </div>
                             <span className="text-sm font-bold text-gray-900 dark:text-white">5 Orders</span>
                         </div>

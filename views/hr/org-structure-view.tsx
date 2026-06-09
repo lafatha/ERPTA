@@ -12,11 +12,11 @@ interface Department {
 }
 
 const mockDepartments: Department[] = [
-    { id: '1', departmentName: 'Engineering', manager: 'John Doe', employeeCount: 45, budget: '$1.2M' },
-    { id: '2', departmentName: 'Marketing', manager: 'Jane Smith', employeeCount: 12, budget: '$400k' },
-    { id: '3', departmentName: 'HR', manager: 'Robert Johnson', employeeCount: 5, budget: '$150k' },
-    { id: '4', departmentName: 'Finance', manager: 'Emily Davis', employeeCount: 8, budget: '$250k' },
-    { id: '5', departmentName: 'Sales', manager: 'Michael Wilson', employeeCount: 24, budget: '$800k' },
+    { id: '1', departmentName: 'Design & Product Development', manager: 'Adi Wijaya', employeeCount: 45, budget: 'Rp 18.000.000.000' },
+    { id: '2', departmentName: 'Marketing & Sales', manager: 'Siti Rahma', employeeCount: 24, budget: 'Rp 12.000.000.000' },
+    { id: '3', departmentName: 'Human Resources', manager: 'Budi Santoso', employeeCount: 5, budget: 'Rp 2.250.000.000' },
+    { id: '4', departmentName: 'Finance & Tax', manager: 'Dewi Lestari', employeeCount: 8, budget: 'Rp 3.750.000.000' },
+    { id: '5', departmentName: 'Production & Manufacturing', manager: 'Eko Susilo', employeeCount: 85, budget: 'Rp 27.500.000.000' },
 ];
 
 export const ORG_COLUMNS: ColumnDef<Department>[] = [

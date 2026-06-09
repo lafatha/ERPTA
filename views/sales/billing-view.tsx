@@ -7,10 +7,10 @@ import { Button } from '@/components/ui/button';
 import { Icons } from '@/components/icons';
 
 const BILLING_DATA = [
-    { id: 'INV-4001', orderId: 'SO-1003', customer: 'Nexus Industries', issueDate: '2026-06-06', dueDate: '2026-07-06', amount: 18500, status: 'Unpaid' },
-    { id: 'INV-4002', orderId: 'SO-1004', customer: 'Retail Plus', issueDate: '2026-06-01', dueDate: '2026-07-01', amount: 3400, status: 'Paid' },
-    { id: 'INV-3998', orderId: 'SO-0950', customer: 'Acme Corp', issueDate: '2026-05-01', dueDate: '2026-06-01', amount: 12500, status: 'Overdue' },
-    { id: 'INV-4005', orderId: 'SO-1002', customer: 'TechFlow', issueDate: '2026-06-08', dueDate: '2026-07-08', amount: 1250, status: 'Unpaid' },
+    { id: 'INV-4001', orderId: 'SO-1003', customer: 'PT Amanah Properti Hotel', issueDate: '2026-06-06', dueDate: '2026-07-06', amount: 277500000, status: 'Unpaid' },
+    { id: 'INV-4002', orderId: 'SO-1004', customer: 'PT Ritel Mebel Indonesia', issueDate: '2026-06-01', dueDate: '2026-07-01', amount: 51000000, status: 'Paid' },
+    { id: 'INV-3998', orderId: 'SO-0950', customer: 'PT Ruang Kerja Modern', issueDate: '2026-05-01', dueDate: '2026-06-01', amount: 187500000, status: 'Overdue' },
+    { id: 'INV-4005', orderId: 'SO-1002', customer: 'PT Desain Interior Prima', issueDate: '2026-06-08', dueDate: '2026-07-08', amount: 18750000, status: 'Unpaid' },
 ];
 
 const COLUMNS: ColumnDef<any>[] = [
@@ -22,7 +22,7 @@ const COLUMNS: ColumnDef<any>[] = [
     { 
         header: 'Amount', 
         accessorKey: 'amount',
-        render: (value: any, item: any) => `$${item.amount.toLocaleString()}`
+        render: (value: any, item: any) => `Rp ${Number(item.amount).toLocaleString('id-ID')}`
     },
     { 
         header: 'Status', 

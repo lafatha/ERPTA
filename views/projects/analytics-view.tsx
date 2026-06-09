@@ -28,7 +28,7 @@ export const ProjectsAnalyticsView = () => {
                     <div className="bg-white p-5 border border-gray-200 rounded-sm shadow-sm">
                         <p className="text-sm text-gray-500 font-medium">Budget Variance</p>
                         <p className={`text-3xl font-semibold mt-2 ${totalSpent > totalBudget ? 'text-red-600' : 'text-green-600'}`}>
-                            ${(totalBudget - totalSpent).toLocaleString('en-US', {maximumFractionDigits: 0})}
+                            Rp {(totalBudget - totalSpent).toLocaleString('id-ID', {maximumFractionDigits: 0})}
                         </p>
                     </div>
                     <div className="bg-white p-5 border border-gray-200 rounded-sm shadow-sm">

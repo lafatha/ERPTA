@@ -16,12 +16,12 @@ interface PlatformUser {
 
 export const PlatformUsersView = () => {
     const [users] = useState<PlatformUser[]>([
-        { id: '1', name: 'Alice Smith', email: 'alice@example.com', role: 'Admin', status: 'Active', lastLogin: '2026-06-08 10:23 AM' },
-        { id: '2', name: 'Bob Johnson', email: 'bob@example.com', role: 'User', status: 'Active', lastLogin: '2026-06-07 04:15 PM' },
-        { id: '3', name: 'Charlie Davis', email: 'charlie@example.com', role: 'Manager', status: 'Inactive', lastLogin: '2026-05-20 09:00 AM' },
-        { id: '4', name: 'Diana Prince', email: 'diana@example.com', role: 'User', status: 'Pending', lastLogin: 'Never' },
-        { id: '5', name: 'Ethan Hunt', email: 'ethan@example.com', role: 'User', status: 'Active', lastLogin: '2026-06-08 08:45 AM' },
-        { id: '6', name: 'Fiona Gallagher', email: 'fiona@example.com', role: 'Manager', status: 'Active', lastLogin: '2026-06-06 11:30 AM' },
+        { id: '1', name: 'Adi Wijaya', email: 'adi@s3furniture.co.id', role: 'Admin', status: 'Active', lastLogin: '2026-06-08 10:23 AM' },
+        { id: '2', name: 'Siti Rahma', email: 'siti@s3furniture.co.id', role: 'User', status: 'Active', lastLogin: '2026-06-07 04:15 PM' },
+        { id: '3', name: 'Budi Santoso', email: 'budi@s3furniture.co.id', role: 'Manager', status: 'Inactive', lastLogin: '2026-05-20 09:00 AM' },
+        { id: '4', name: 'Dewi Lestari', email: 'dewi@s3furniture.co.id', role: 'User', status: 'Pending', lastLogin: 'Never' },
+        { id: '5', name: 'Eko Susilo', email: 'eko@s3furniture.co.id', role: 'User', status: 'Active', lastLogin: '2026-06-08 08:45 AM' },
+        { id: '6', name: 'Fitriani', email: 'fitri@s3furniture.co.id', role: 'Manager', status: 'Active', lastLogin: '2026-06-06 11:30 AM' },
     ]);
 
     const columns: ColumnDef<PlatformUser>[] = [

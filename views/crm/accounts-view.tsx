@@ -11,7 +11,7 @@ export const ACCOUNT_COLUMNS: ColumnDef<CustomerAccount>[] = [
     { header: 'Account Name', accessorKey: 'name', width: 'w-48', render: (val) => <span className="font-medium text-gray-900">{val}</span> },
     { header: 'Industry', accessorKey: 'industry' },
     { header: 'Account Manager', accessorKey: 'accountManager' },
-    { header: 'Annual Revenue', accessorKey: 'annualRevenue', type: 'number', render: (val) => `$${Number(val).toLocaleString()}` },
+    { header: 'Annual Revenue', accessorKey: 'annualRevenue', type: 'number', render: (val) => `Rp ${Number(val).toLocaleString('id-ID')}` },
     { 
         header: 'Status', 
         accessorKey: 'status',

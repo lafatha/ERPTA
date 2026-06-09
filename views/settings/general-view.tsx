@@ -6,10 +6,10 @@ import { Icons } from '@/components/icons';
 
 export const GeneralSettingsView = () => {
     const { theme, toggleTheme } = useMockDb();
-    const [companyName, setCompanyName] = useState('Acme Furniture Manufacturing');
-    const [email, setEmail] = useState('admin@acmefurniture.com');
-    const [timezone, setTimezone] = useState('UTC-05:00 Eastern Time');
-    const [currency, setCurrency] = useState('USD ($)');
+    const [companyName, setCompanyName] = useState('S3 Furniture');
+    const [email, setEmail] = useState('admin@s3furniture.co.id');
+    const [timezone, setTimezone] = useState('UTC+07:00 Jakarta (WIB)');
+    const [currency, setCurrency] = useState('IDR (Rp)');
 
     return (
         <div className="p-6 h-full overflow-y-auto bg-gray-50/30 dark:bg-[#0f0f0f] transition-colors duration-200">
@@ -96,6 +96,7 @@ export const GeneralSettingsView = () => {
                                         onChange={(e) => setTimezone(e.target.value)}
                                         className="w-full px-3 py-2 border border-gray-300 dark:border-[#3f3f3f] rounded-lg text-sm bg-white dark:bg-[#121212] text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-black dark:focus:border-white transition-colors"
                                     >
+                                        <option>UTC+07:00 Jakarta (WIB)</option>
                                         <option>UTC-05:00 Eastern Time</option>
                                         <option>UTC-08:00 Pacific Time</option>
                                         <option>UTC+00:00 Greenwich Mean Time</option>
@@ -108,10 +109,10 @@ export const GeneralSettingsView = () => {
                                         onChange={(e) => setCurrency(e.target.value)}
                                         className="w-full px-3 py-2 border border-gray-300 dark:border-[#3f3f3f] rounded-lg text-sm bg-white dark:bg-[#121212] text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-black dark:focus:border-white transition-colors"
                                     >
+                                        <option>IDR (Rp)</option>
                                         <option>USD ($)</option>
                                         <option>EUR (€)</option>
                                         <option>GBP (£)</option>
-                                        <option>IDR (Rp)</option>
                                     </select>
                                 </div>
                             </div>

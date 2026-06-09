@@ -5,7 +5,7 @@ import { Icons } from '@/components/icons';
 
 export const DashboardKpiView = () => {
     const kpis = [
-        { label: 'Total Revenue', value: '$2.4M', target: '$2.5M', progress: 96, trend: '+12%', isPositive: true },
+        { label: 'Total Revenue', value: 'Rp 36.000.000.000', target: 'Rp 37.500.000.000', progress: 96, trend: '+12%', isPositive: true },
         { label: 'Operating Margin', value: '24.2%', target: '25.0%', progress: 97, trend: '+1.5%', isPositive: true },
         { label: 'Customer Satisfaction', value: '4.8/5.0', target: '4.5', progress: 100, trend: '+0.2', isPositive: true },
         { label: 'Employee Turnover', value: '4.2%', target: '< 5.0%', progress: 100, trend: '-0.5%', isPositive: true },

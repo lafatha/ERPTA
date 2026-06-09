@@ -15,16 +15,18 @@ export const VALUATION_COLUMNS: ColumnDef<InventoryItem>[] = [
         header: 'Estimated Unit Value', 
         accessorKey: 'id', // just using ID to generate a consistent fake value
         render: (val, item) => {
-            const valNum = (item.name.length * 12.5) + (item.category === 'Finished Goods' ? 200 : 5);
-            return `$${valNum.toFixed(2)}`;
+            const multiplier = item.category === 'Finished Goods' ? 15000000 : 150000;
+            const valNum = (item.name.length * multiplier * 0.05) + (item.category === 'Finished Goods' ? 3000000 : 75000);
+            return `Rp ${valNum.toLocaleString('id-ID', {maximumFractionDigits: 0})}`;
         }
     },
     { 
         header: 'Total Value', 
         accessorKey: 'id',
         render: (val, item) => {
-            const valNum = (item.name.length * 12.5) + (item.category === 'Finished Goods' ? 200 : 5);
-            return <span className="font-semibold text-gray-900">${(valNum * item.stockLevel).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>;
+            const multiplier = item.category === 'Finished Goods' ? 15000000 : 150000;
+            const valNum = (item.name.length * multiplier * 0.05) + (item.category === 'Finished Goods' ? 3000000 : 75000);
+            return <span className="font-semibold text-gray-900">Rp {(valNum * item.stockLevel).toLocaleString('id-ID', {maximumFractionDigits: 0})}</span>;
         }
     }
 ];

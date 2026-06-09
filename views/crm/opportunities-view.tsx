@@ -10,7 +10,7 @@ import { RecordDrawer } from '@/components/record-drawer';
 export const OPPORTUNITY_COLUMNS: ColumnDef<Opportunity>[] = [
     { header: 'Opportunity Title', accessorKey: 'title', width: 'w-64', render: (val) => <span className="font-medium text-gray-900">{val}</span> },
     { header: 'Account', accessorKey: 'accountName' },
-    { header: 'Value', accessorKey: 'value', type: 'number', render: (val) => `$${Number(val).toLocaleString()}` },
+    { header: 'Value', accessorKey: 'value', type: 'number', render: (val) => `Rp ${Number(val).toLocaleString('id-ID')}` },
     { header: 'Probability', accessorKey: 'probability', type: 'number', render: (val) => `${val}%` },
     { header: 'Close Date', accessorKey: 'expectedCloseDate' },
     { 

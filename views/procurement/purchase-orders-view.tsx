@@ -13,7 +13,7 @@ export const PO_COLUMNS: ColumnDef<PurchaseOrder>[] = [
     { header: 'Order Date', accessorKey: 'orderDate' },
     { header: 'Delivery Date', accessorKey: 'deliveryDate' },
     { header: 'Items', accessorKey: 'items', type: 'number' },
-    { header: 'Total Amount', accessorKey: 'totalAmount', type: 'number', render: (val) => `$${Number(val).toLocaleString()}` },
+    { header: 'Total Amount', accessorKey: 'totalAmount', type: 'number', render: (val) => `Rp ${Number(val).toLocaleString('id-ID')}` },
     { 
         header: 'Status', 
         accessorKey: 'status',

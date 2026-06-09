@@ -12,7 +12,7 @@ export const CONTRACT_COLUMNS: ColumnDef<Contract>[] = [
     { header: 'Supplier', accessorKey: 'supplierName' },
     { header: 'Start Date', accessorKey: 'startDate' },
     { header: 'End Date', accessorKey: 'endDate' },
-    { header: 'Value', accessorKey: 'value', type: 'number', render: (val) => `$${Number(val).toLocaleString()}` },
+    { header: 'Value', accessorKey: 'value', type: 'number', render: (val) => `Rp ${Number(val).toLocaleString('id-ID')}` },
     { 
         header: 'Status', 
         accessorKey: 'status',

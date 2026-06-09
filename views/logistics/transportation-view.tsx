@@ -15,18 +15,18 @@ interface TransportOrder {
 }
 
 const mockTransport: TransportOrder[] = [
-    { id: '1', orderNumber: 'TR-1001', carrier: 'FedEx Freight', origin: 'New York, NY', destination: 'Los Angeles, CA', status: 'In Transit', cost: 1250 },
-    { id: '2', orderNumber: 'TR-1002', carrier: 'UPS Supply Chain', origin: 'Chicago, IL', destination: 'Dallas, TX', status: 'Delivered', cost: 850 },
-    { id: '3', orderNumber: 'TR-1003', carrier: 'XPO Logistics', origin: 'Miami, FL', destination: 'Atlanta, GA', status: 'Scheduled', cost: 450 },
-    { id: '4', orderNumber: 'TR-1004', carrier: 'DHL Global', origin: 'Seattle, WA', destination: 'Denver, CO', status: 'Delayed', cost: 1100 },
+    { id: '1', orderNumber: 'TR-1001', carrier: 'J&T Cargo', origin: 'Jepara', destination: 'Jakarta', status: 'In Transit', cost: 18750000 },
+    { id: '2', orderNumber: 'TR-1002', carrier: 'JNE Cargo', origin: 'Semarang', destination: 'Surabaya', status: 'Delivered', cost: 12750000 },
+    { id: '3', orderNumber: 'TR-1003', carrier: 'Sicepat Cargo', origin: 'Tangerang', destination: 'Bandung', status: 'Scheduled', cost: 6750000 },
+    { id: '4', orderNumber: 'TR-1004', carrier: 'Karya Indah Logistics', origin: 'Jepara', destination: 'Medan', status: 'Delayed', cost: 24750000 },
 ];
 
 export const TRANSPORT_COLUMNS: ColumnDef<TransportOrder>[] = [
     { header: 'Order No.', accessorKey: 'orderNumber', width: 'w-32', render: (val) => <span className="font-medium text-gray-900 dark:text-white">{val}</span> },
-    { header: 'Carrier', accessorKey: 'carrier', type: 'select', options: ['FedEx Freight', 'UPS Supply Chain', 'XPO Logistics', 'DHL Global'] },
+    { header: 'Carrier', accessorKey: 'carrier', type: 'select', options: ['JNE Cargo', 'J&T Cargo', 'Sicepat Cargo', 'Karya Indah Logistics'] },
     { header: 'Origin', accessorKey: 'origin' },
     { header: 'Destination', accessorKey: 'destination' },
-    { header: 'Cost', accessorKey: 'cost', type: 'number', render: (val) => `$${val.toLocaleString()}` },
+    { header: 'Cost', accessorKey: 'cost', type: 'number', render: (val) => `Rp ${Number(val).toLocaleString('id-ID')}` },
     { 
         header: 'Status', 
         accessorKey: 'status',

@@ -14,7 +14,7 @@ export const CYCLE_COUNT_COLUMNS: ColumnDef<CycleCount>[] = [
     { header: 'Assigned To', accessorKey: 'assignedTo' },
     { header: 'Variance Value', accessorKey: 'varianceValue', type: 'number', render: (val) => (
         <span className={Number(val) < 0 ? 'text-red-600 font-medium' : 'text-gray-900'}>
-            ${Math.abs(Number(val)).toLocaleString()} {Number(val) < 0 ? '(Loss)' : ''}
+            Rp {Math.abs(Number(val)).toLocaleString('id-ID')} {Number(val) < 0 ? '(Loss)' : ''}
         </span>
     )},
     { 

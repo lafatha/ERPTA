@@ -8,10 +8,10 @@ import { Icons } from '@/components/icons';
 import { CreateDrawer } from '@/components/create-drawer';
 
 const PROCESS_DATA = [
-    { id: 'SO-1001', customer: 'Acme Corp', date: '2026-06-08', value: 4500, status: 'Draft', owner: 'Sarah Kim' },
-    { id: 'SO-1002', customer: 'TechFlow', date: '2026-06-07', value: 1250, status: 'Confirmed', owner: 'John Carter' },
-    { id: 'SO-1003', customer: 'Nexus Industries', date: '2026-06-05', value: 18500, status: 'Invoiced', owner: 'David Chen' },
-    { id: 'SO-1004', customer: 'Retail Plus', date: '2026-06-01', value: 3400, status: 'Paid', owner: 'Sarah Kim' },
+    { id: 'SO-1001', customer: 'PT Ruang Kerja Modern', date: '2026-06-08', value: 67500000, status: 'Draft', owner: 'Adi Wijaya' },
+    { id: 'SO-1002', customer: 'PT Desain Interior Prima', date: '2026-06-07', value: 18750000, status: 'Confirmed', owner: 'Budi Santoso' },
+    { id: 'SO-1003', customer: 'PT Amanah Properti Hotel', date: '2026-06-05', value: 277500000, status: 'Invoiced', owner: 'Siti Rahma' },
+    { id: 'SO-1004', customer: 'PT Ritel Mebel Indonesia', date: '2026-06-01', value: 51000000, status: 'Paid', owner: 'Adi Wijaya' },
 ];
 
 const COLUMNS: ColumnDef<any>[] = [
@@ -30,7 +30,7 @@ const COLUMNS: ColumnDef<any>[] = [
     { 
         header: 'Value', 
         accessorKey: 'value',
-        render: (value: any, item: any) => `$${item.value.toLocaleString()}`
+        render: (value: any, item: any) => `Rp ${Number(item.value).toLocaleString('id-ID')}`
     },
 ];
 

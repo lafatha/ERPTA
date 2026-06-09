@@ -24,12 +24,12 @@ interface ChatMessage {
 export const PlatformOrdersView = () => {
     // Mock Data for Platform Orders
     const [orders] = useState<PlatformOrder[]>([
-        { id: '1', orderNumber: 'PLAT-1001', user: 'Alice Smith', status: 'Pending', date: '2026-06-08', total: '$1,200.00' },
-        { id: '2', orderNumber: 'PLAT-1002', user: 'Bob Johnson', status: 'Processing', date: '2026-06-07', total: '$450.00' },
-        { id: '3', orderNumber: 'PLAT-1003', user: 'Charlie Davis', status: 'Completed', date: '2026-06-05', total: '$3,150.00' },
-        { id: '4', orderNumber: 'PLAT-1004', user: 'Diana Prince', status: 'Pending', date: '2026-06-08', total: '$890.00' },
-        { id: '5', orderNumber: 'PLAT-1005', user: 'Ethan Hunt', status: 'Processing', date: '2026-06-09', total: '$2,100.00' },
-        { id: '6', orderNumber: 'PLAT-1006', user: 'Fiona Gallagher', status: 'Completed', date: '2026-06-02', total: '$500.00' },
+        { id: '1', orderNumber: 'PLAT-1001', user: 'PT Amanah Properti Hotel', status: 'Pending', date: '2026-06-08', total: 'Rp 18.000.000' },
+        { id: '2', orderNumber: 'PLAT-1002', user: 'PT Ruang Kerja Modern', status: 'Processing', date: '2026-06-07', total: 'Rp 6.750.000' },
+        { id: '3', orderNumber: 'PLAT-1003', user: 'PT Desain Interior Prima', status: 'Completed', date: '2026-06-05', total: 'Rp 47.250.000' },
+        { id: '4', orderNumber: 'PLAT-1004', user: 'PT Sinergi Kantor Indonesia', status: 'Pending', date: '2026-06-08', total: 'Rp 13.350.000' },
+        { id: '5', orderNumber: 'PLAT-1005', user: 'PT Citra Developer Group', status: 'Processing', date: '2026-06-09', total: 'Rp 31.500.000' },
+        { id: '6', orderNumber: 'PLAT-1006', user: 'PT Ritel Mebel Indonesia', status: 'Completed', date: '2026-06-02', total: 'Rp 7.500.000' },
     ]);
 
     // Chat State

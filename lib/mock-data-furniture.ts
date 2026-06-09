@@ -9,41 +9,51 @@ import {
 
 // Generators for Furniture Theme
 export const FURNITURE_PRODUCTS = [
-    { name: 'Executive Desk - Oak', part: 'FD-OAK-01', unit: 'pcs' },
-    { name: 'Ergonomic Office Chair', part: 'CH-ERG-02', unit: 'pcs' },
-    { name: 'Conference Table 12ft', part: 'CT-12-00', unit: 'pcs' },
-    { name: 'Modern Sofa 3-Seater', part: 'SF-MOD-3S', unit: 'pcs' },
-    { name: 'Bookshelf - Walnut', part: 'BS-WAL-05', unit: 'pcs' },
-    { name: 'Filing Cabinet 4-Drawer', part: 'FC-4D-00', unit: 'pcs' },
-    { name: 'Dining Table - Rustic', part: 'DT-RUS-01', unit: 'pcs' },
-    { name: 'Lounge Chair', part: 'LC-001', unit: 'pcs' },
+    { name: 'Executive Desk Pro', part: 'FG-EDP-001', unit: 'pcs' },
+    { name: 'Modern Wardrobe Series A', part: 'FG-MWA-002', unit: 'pcs' },
+    { name: 'Premium Bookshelf XL', part: 'FG-PBX-003', unit: 'pcs' },
+    { name: 'Conference Table Elite', part: 'FG-CTE-004', unit: 'pcs' },
+    { name: 'Luxury Sofa Collection', part: 'FG-LSC-005', unit: 'pcs' },
+    { name: 'Dining Set Signature', part: 'FG-DSS-006', unit: 'pcs' },
+    { name: 'Office Partition Panel', part: 'FG-OPP-007', unit: 'pcs' },
+    { name: 'Custom Reception Desk', part: 'FG-CRD-008', unit: 'pcs' },
 ];
 
 export const RAW_MATERIALS = [
-    { name: 'Oak Wood Panel 8x4', category: 'Raw Materials', unit: 'pcs' },
-    { name: 'Walnut Wood Panel 8x4', category: 'Raw Materials', unit: 'pcs' },
-    { name: 'MDF Board 18mm', category: 'Raw Materials', unit: 'pcs' },
-    { name: 'Premium Leather - Black', category: 'Upholstery', unit: 'm' },
-    { name: 'High-Density Foam', category: 'Upholstery', unit: 'kg' },
-    { name: 'Drawer Slides (Set)', category: 'Hardware', unit: 'pcs' },
-    { name: 'Screws 50mm (Box)', category: 'Hardware', unit: 'box' },
-    { name: 'Wood Glue 5L', category: 'Consumables', unit: 'L' },
-    { name: 'Clear Varnish', category: 'Consumables', unit: 'L' },
-    { name: 'Packaging Cardboard', category: 'Packaging', unit: 'm' },
+    { name: 'Oak Wood Panels', category: 'Raw Materials', unit: 'pcs' },
+    { name: 'Teak Wood Boards', category: 'Raw Materials', unit: 'pcs' },
+    { name: 'MDF Sheets', category: 'Raw Materials', unit: 'pcs' },
+    { name: 'Plywood Panels', category: 'Raw Materials', unit: 'pcs' },
+    { name: 'Veneer Sheets', category: 'Raw Materials', unit: 'pcs' },
+    { name: 'Foam Cushions', category: 'Upholstery Materials', unit: 'pcs' },
+    { name: 'Upholstery Fabric', category: 'Upholstery Materials', unit: 'm' },
+    { name: 'Leather Rolls', category: 'Upholstery Materials', unit: 'm' },
+    { name: 'Metal Frames', category: 'Hardware', unit: 'pcs' },
+    { name: 'Drawer Slides', category: 'Hardware', unit: 'pcs' },
+    { name: 'Hinges', category: 'Hardware', unit: 'pcs' },
+    { name: 'Screws', category: 'Hardware', unit: 'box' },
+    { name: 'Fasteners', category: 'Hardware', unit: 'box' },
+    { name: 'Paint', category: 'Paint & Finishing Materials', unit: 'L' },
+    { name: 'Varnish', category: 'Paint & Finishing Materials', unit: 'L' },
+    { name: 'Adhesives', category: 'Paint & Finishing Materials', unit: 'L' },
+    { name: 'Packaging Cartons', category: 'Packaging Materials', unit: 'pcs' },
 ];
 
 export const SUPPLIERS_LIST = [
-    { name: 'Nordic Timber Supplies', contact: 'Olaf Jensen', industry: 'Wood' },
-    { name: 'Global Hardware Co.', contact: 'Chen Wei', industry: 'Hardware' },
-    { name: 'Premium Fabrics Ltd', contact: 'Sarah Miller', industry: 'Upholstery' },
-    { name: 'ChemCo Finishes', contact: 'David Brown', industry: 'Chemicals' },
+    { name: 'PT Kayu Jati Rimba', contact: 'Budi Hartono', industry: 'Timber & Wood' },
+    { name: 'PT Abadi Logam Teknik', contact: 'Hendry Wijaya', industry: 'Hardware' },
+    { name: 'PT Tekstil Indah Jaya', contact: 'Rini Lestari', industry: 'Upholstery Fabric' },
+    { name: 'PT Kimia Finishing Utama', contact: 'Agus Setiawan', industry: 'Finishing Chemicals' },
+    { name: 'PT Logistik Nusantara', contact: 'Joko Widodo', industry: 'Logistics' },
 ];
 
 export const CUSTOMERS_LIST = [
-    { name: 'OfficeMax Solutions', industry: 'Retail' },
-    { name: 'Grand Hotels Group', industry: 'Hospitality' },
-    { name: 'Workspace Innovations', industry: 'Corporate' },
-    { name: 'Direct Furniture Outlet', industry: 'Retail' },
+    { name: 'PT Ruang Kerja Modern', industry: 'Co-working Spaces' },
+    { name: 'PT Sinergi Kantor Indonesia', industry: 'Corporate Offices' },
+    { name: 'PT Amanah Properti Hotel', industry: 'Hotels & Resorts' },
+    { name: 'PT Citra Developer Group', industry: 'Property Developers' },
+    { name: 'PT Ritel Mebel Indonesia', industry: 'Furniture Retailers' },
+    { name: 'PT Desain Interior Prima', industry: 'Interior Design Firms' },
 ];
 
 const formatDate = (d: Date) => `${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')}/${d.getFullYear()}`;
@@ -65,14 +75,15 @@ export const generateInventory = (): InventoryItem[] => {
         const stock = Math.floor(Math.random() * 500) + 20;
         return {
             id: `inv-rm-${i}`,
-            sku: `RM-${String(i).padStart(4, '0')}`,
+            sku: m.name.substring(0, 3).toUpperCase() + `-` + String(i + 100),
             name: m.name,
             category: m.category,
             stockLevel: stock,
             unit: m.unit,
             reorderPoint: 100,
             valuationMethod: 'Average Cost' as const,
-            warehouse: 'Raw Materials Warehouse',
+            warehouse: m.category === 'Hardware' ? 'Hardware Storage' : 
+                       m.category === 'Upholstery Materials' ? 'Upholstery Storage' : 'Raw Materials Warehouse',
             status: stock < 100 ? 'Low Stock' as const : 'In Stock' as const,
         }
     })];
@@ -83,8 +94,8 @@ export const generateSuppliers = (): Supplier[] => {
         id: `sup-${i}`,
         name: s.name,
         contactName: s.contact,
-        email: `contact@${s.name.toLowerCase().replace(/\s/g, '')}.com`,
-        phone: '+1-555-019' + i,
+        email: `contact@${s.name.toLowerCase().replace(/[\s\.]/g, '')}.co.id`,
+        phone: '+62-21-555-' + String(100 + i),
         rating: Math.floor(Math.random() * 2) + 4,
         leadTimeDays: Math.floor(Math.random() * 10) + 5,
         status: 'Active',
@@ -102,7 +113,7 @@ export const generatePurchaseOrders = (suppliers: Supplier[]): PurchaseOrder[] =
             supplierName: supplier.name,
             orderDate: formatDate(d),
             deliveryDate: formatDate(new Date(d.getTime() + supplier.leadTimeDays * 86400000)),
-            totalAmount: Math.floor(Math.random() * 50000) + 5000,
+            totalAmount: Math.floor(Math.random() * 450000000) + 50000000,
             status: ['Draft', 'Submitted', 'Approved', 'Ordered', 'Partially Received', 'Completed'][Math.floor(Math.random() * 6)] as any,
             items: Math.floor(Math.random() * 10) + 1,
         };
@@ -127,8 +138,8 @@ export const generateManufacturingOrders = (): ManufacturingOrder[] => {
             startDate: formatDate(d),
             finishDate: formatDate(new Date(d.getTime() + 7 * 86400000)),
             dueDate: formatDate(new Date(d.getTime() + 10 * 86400000)),
-            assignedOperator: ['John Smith', 'Maria Garcia', 'Alex Chen'][Math.floor(Math.random() * 3)],
-            factory: 'Main Furniture Plant',
+            assignedOperator: ['Budi Santoso', 'Siti Rahma', 'Adi Wijaya', 'Eko Susilo', 'Dewi Lestari'][Math.floor(Math.random() * 5)],
+            factory: 'Jepara Furniture Plant',
             progress: Math.floor(Math.random() * 100),
         };
     });
@@ -139,19 +150,19 @@ export const generateCustomers = (): CustomerAccount[] => {
         id: `cust-${i}`,
         name: c.name,
         industry: c.industry,
-        accountManager: 'Sarah Jenkins',
-        annualRevenue: Math.floor(Math.random() * 5000000) + 500000,
+        accountManager: 'Adi Wijaya',
+        annualRevenue: Math.floor(Math.random() * 45000000000) + 5000000000,
         status: 'Active',
     }));
 };
 
 export const generateWarehouses = (): Warehouse[] => {
     return [
-        { id: 'wh-1', name: 'Raw Materials Warehouse', location: 'Building A', capacityPct: 85, manager: 'Tom Hanks', status: 'Active' },
-        { id: 'wh-2', name: 'Finished Goods Warehouse', location: 'Building B', capacityPct: 62, manager: 'Emma Stone', status: 'Active' },
-        { id: 'wh-3', name: 'Hardware Storage', location: 'Building A - Annex', capacityPct: 45, manager: 'Tom Hanks', status: 'Active' },
-        { id: 'wh-4', name: 'Upholstery Storage', location: 'Building C', capacityPct: 95, manager: 'Chris Pratt', status: 'Full' },
-        { id: 'wh-5', name: 'Distribution Center', location: 'Offsite Logistics Hub', capacityPct: 70, manager: 'Zendaya', status: 'Active' },
+        { id: 'wh-1', name: 'Raw Materials Warehouse', location: 'Building A', capacityPct: 85, manager: 'Hendro Prasetyo', status: 'Active' },
+        { id: 'wh-2', name: 'Finished Goods Warehouse', location: 'Building B', capacityPct: 62, manager: 'Sri Utami', status: 'Active' },
+        { id: 'wh-3', name: 'Hardware Storage', location: 'Building A - Annex', capacityPct: 45, manager: 'Hendro Prasetyo', status: 'Active' },
+        { id: 'wh-4', name: 'Upholstery Storage', location: 'Building C', capacityPct: 95, manager: 'Bambang Haryono', status: 'Full' },
+        { id: 'wh-5', name: 'Distribution Center', location: 'Offsite Logistics Hub', capacityPct: 70, manager: 'Lilis Suryani', status: 'Active' },
     ];
 };
 
@@ -211,18 +222,21 @@ export const generateCycleCounts = (): CycleCount[] => {
             category: ['Wood', 'Hardware', 'Fabric', 'Finished Goods'][Math.floor(Math.random() * 4)],
             status: ['Scheduled', 'In Progress', 'Completed', 'Requires Recount'][Math.floor(Math.random() * 4)] as any,
             assignedTo: 'Auditor ' + (i + 1),
-            varianceValue: Math.floor(Math.random() * 500) - 100,
+            varianceValue: Math.floor(Math.random() * 10000000) - 2000000,
         };
     });
 };
 
 export const generateWorkstationGroups = (): WorkstationGroup[] => {
     return [
-        { id: 'wg-1', name: 'Cutting Department', department: 'Primary Machining', manager: 'David Miller', workstationCount: 4, efficiency: 92 },
-        { id: 'wg-2', name: 'CNC Routing', department: 'Advanced Machining', manager: 'Sarah Jenkins', workstationCount: 3, efficiency: 88 },
-        { id: 'wg-3', name: 'Finishing & Painting', department: 'Surface Treatment', manager: 'Michael Chang', workstationCount: 5, efficiency: 85 },
-        { id: 'wg-4', name: 'Upholstery', department: 'Soft Goods', manager: 'Elena Rodriguez', workstationCount: 6, efficiency: 95 },
-        { id: 'wg-5', name: 'Final Assembly', department: 'Assembly', manager: 'James Wilson', workstationCount: 8, efficiency: 90 },
+        { id: 'wg-1', name: 'Cutting Station', department: 'Primary Woodworking', manager: 'Adi Wijaya', workstationCount: 4, efficiency: 92 },
+        { id: 'wg-2', name: 'CNC Processing', department: 'Advanced Woodworking', manager: 'Siti Rahma', workstationCount: 3, efficiency: 88 },
+        { id: 'wg-3', name: 'Sanding Station', department: 'Surface Preparation', manager: 'Budi Santoso', workstationCount: 3, efficiency: 90 },
+        { id: 'wg-4', name: 'Assembly Station', department: 'Product Assembly', manager: 'Eko Susilo', workstationCount: 4, efficiency: 91 },
+        { id: 'wg-5', name: 'Upholstery Department', department: 'Soft Goods Assembly', manager: 'Dewi Lestari', workstationCount: 4, efficiency: 95 },
+        { id: 'wg-6', name: 'Painting & Finishing', department: 'Surface Treatment', manager: 'Budi Santoso', workstationCount: 3, efficiency: 85 },
+        { id: 'wg-7', name: 'Packaging Station', department: 'Packing & Logistics', manager: 'Adi Wijaya', workstationCount: 2, efficiency: 94 },
+        { id: 'wg-8', name: 'Quality Inspection', department: 'Quality Assurance', manager: 'Dewi Lestari', workstationCount: 2, efficiency: 98 },
     ];
 };
 
@@ -261,7 +275,7 @@ export const generateBOMs = (): BOM[] => {
         version: `v1.${Math.floor(Math.random() * 5)}`,
         componentCount: Math.floor(Math.random() * 15) + 5,
         status: ['Active', 'In Development', 'Obsolete'][Math.floor(Math.random() * 3)] as any,
-        totalCost: Math.floor(Math.random() * 300) + 50,
+        totalCost: Math.floor(Math.random() * 3500000) + 500000,
     }));
 };
 
@@ -279,10 +293,10 @@ export const generateRoutings = (): Routing[] => {
 export const generateLeads = (): Lead[] => {
     return Array.from({ length: 20 }, (_, i) => ({
         id: `lead-${i}`,
-        company: `Prospect Company ${i + 1}`,
-        contactPerson: `John Doe ${i}`,
-        email: `john.doe${i}@prospect.com`,
-        phone: `+1-555-01${String(i).padStart(2, '0')}`,
+        company: ['PT Sinergi Properti', 'Hotel Santika Jepara', 'Co-working Hive', 'PT Citra Mandiri', 'Universitas Indonesia', 'PT Jaya Konstruksi'][i % 6] + ` ` + (i + 1),
+        contactPerson: ['Budi', 'Siti', 'Agus', 'Dewi', 'Hendro', 'Lilis'][i % 6] + ` ` + i,
+        email: `prospect${i}@s3furniture.co.id`,
+        phone: `+62-811-555-` + String(100 + i),
         status: ['New', 'Contacted', 'Qualified', 'Lost', 'Converted'][Math.floor(Math.random() * 5)] as any,
         source: ['Website', 'Trade Show', 'Referral', 'Cold Call'][Math.floor(Math.random() * 4)],
         createdAt: formatDate(new Date(2026, Math.floor(Math.random() * 5), Math.floor(Math.random() * 28) + 1)),
@@ -294,10 +308,10 @@ export const generateOpportunities = (customers: CustomerAccount[]): Opportunity
         const customer = customers[Math.floor(Math.random() * customers.length)];
         return {
             id: `opp-${i}`,
-            title: `${customer.name} - Q3 Furniture Upgrade`,
+            title: `${customer.name} - Pengadaan Mebel Kantor Q3`,
             accountId: customer.id,
             accountName: customer.name,
-            value: Math.floor(Math.random() * 100000) + 5000,
+            value: Math.floor(Math.random() * 1450000000) + 50000000,
             stage: ['Prospecting', 'Qualification', 'Proposal', 'Negotiation', 'Closed Won', 'Closed Lost'][Math.floor(Math.random() * 6)] as any,
             probability: Math.floor(Math.random() * 100),
             expectedCloseDate: formatDate(new Date(2026, Math.floor(Math.random() * 5) + 6, Math.floor(Math.random() * 28) + 1)),
@@ -309,22 +323,22 @@ export const generateContacts = (customers: CustomerAccount[]): Contact[] => {
     return customers.flatMap((c, i) => [
         {
             id: `cont-${i}-1`,
-            firstName: 'Alice',
-            lastName: `Smith ${i}`,
+            firstName: ['Ahmad', 'Budi', 'Hendro', 'Adi'][i % 4],
+            lastName: ['Santoso', 'Suryono', 'Wijaya', 'Prasetyo'][i % 4] + ` ${i}`,
             accountId: c.id,
             accountName: c.name,
-            email: `alice@${c.name.replace(/\s+/g, '').toLowerCase()}.com`,
-            phone: `+1-555-900${i}`,
+            email: `purchasing@${c.name.replace(/[\s\.]/g, '').toLowerCase()}.co.id`,
+            phone: `+62-812-555-` + String(100 + i),
             role: 'Purchasing Manager',
         },
         {
             id: `cont-${i}-2`,
-            firstName: 'Bob',
-            lastName: `Johnson ${i}`,
+            firstName: ['Siti', 'Dewi', 'Rini', 'Lilis'][i % 4],
+            lastName: ['Rahma', 'Lestari', 'Utami', 'Suryani'][i % 4] + ` ${i}`,
             accountId: c.id,
             accountName: c.name,
-            email: `bob@${c.name.replace(/\s+/g, '').toLowerCase()}.com`,
-            phone: `+1-555-901${i}`,
+            email: `facilities@${c.name.replace(/[\s\.]/g, '').toLowerCase()}.co.id`,
+            phone: `+62-813-555-` + String(100 + i),
             role: 'Facilities Director',
         }
     ]);
@@ -335,7 +349,7 @@ export const generateActivities = (customers: CustomerAccount[]): Activity[] => 
         const customer = customers[Math.floor(Math.random() * customers.length)];
         return {
             id: `act-${i}`,
-            title: `Follow up on Proposal`,
+            title: `Follow up Proposal Mebel`,
             type: ['Call', 'Email', 'Meeting', 'Task'][Math.floor(Math.random() * 4)] as any,
             relatedTo: customer.name,
             date: formatDate(new Date(2026, 5, Math.floor(Math.random() * 28) + 1)),
@@ -360,10 +374,10 @@ export const generateQuotations = (opps: Opportunity[]): Quotation[] => {
 export const generateProjects = (customers: CustomerAccount[]): Project[] => {
     return Array.from({ length: 10 }, (_, i) => {
         const customer = customers[Math.floor(Math.random() * customers.length)];
-        const budget = Math.floor(Math.random() * 200000) + 20000;
+        const budget = Math.floor(Math.random() * 1800000000) + 200000000;
         return {
             id: `proj-${i}`,
-            projectName: `${customer.name} - Custom Fitout ${i+1}`,
+            projectName: `${customer.name} - Instalasian Mebel Kantor ${i+1}`,
             customerId: customer.id,
             customerName: customer.name,
             status: ['Planning', 'Execution', 'Completed', 'On Hold'][Math.floor(Math.random() * 4)] as any,
@@ -371,7 +385,7 @@ export const generateProjects = (customers: CustomerAccount[]): Project[] => {
             spent: budget * (Math.random() * 0.9),
             startDate: formatDate(new Date(2026, Math.floor(Math.random() * 3) + 1, 1)),
             endDate: formatDate(new Date(2026, Math.floor(Math.random() * 3) + 6, 28)),
-            manager: 'Alice Project Lead',
+            manager: 'Budi Santoso',
         };
     });
 };
@@ -381,8 +395,8 @@ export const generateProjectTasks = (projects: Project[]): ProjectTask[] => {
         id: `ptask-${p.id}-${i}`,
         projectId: p.id,
         projectName: p.projectName,
-        taskName: `Design Phase ${i + 1}`,
-        assignee: ['Bob', 'Charlie', 'Diana'][Math.floor(Math.random() * 3)],
+        taskName: [`Pengukuran Lapangan`, `Persetujuan Desain CAD`, `Perakitan Rangka Kayu`, `Finishing & Cat`, `Instalasi Lapangan`][i % 5],
+        assignee: ['Adi Wijaya', 'Budi Santoso', 'Eko Susilo'][Math.floor(Math.random() * 3)],
         status: ['To Do', 'In Progress', 'Review', 'Done'][Math.floor(Math.random() * 4)] as any,
         dueDate: formatDate(new Date(2026, Math.floor(Math.random() * 11), 15)),
     })));
@@ -393,7 +407,7 @@ export const generateProjectMilestones = (projects: Project[]): ProjectMilestone
         id: `pmile-${p.id}-${i}`,
         projectId: p.id,
         projectName: p.projectName,
-        title: `Phase ${i + 1} Delivery`,
+        title: [`Kirim Material Dasar`, `Selesai Perakitan`, `Instalasi & Serah Terima`][i % 3],
         date: formatDate(new Date(2026, Math.floor(Math.random() * 11), 28)),
         status: ['Pending', 'Achieved'][Math.floor(Math.random() * 2)] as any,
     })));
@@ -418,7 +432,7 @@ export const generateProjectTeamMembers = (projects: Project[]): ProjectTeamMemb
         id: `pteam-${p.id}-${i}`,
         projectId: p.id,
         projectName: p.projectName,
-        name: `Team Member ${i + 1}`,
+        name: ['Ahmad', 'Budi', 'Hendro', 'Adi', 'Siti', 'Dewi'][Math.floor(Math.random() * 6)] + ` ${i + 1}`,
         role: ['Project Manager', 'Developer', 'Designer', 'Consultant', 'QA'][Math.floor(Math.random() * 5)] as any,
         allocationPct: Math.floor(Math.random() * 50) + 50,
     })));
@@ -428,12 +442,12 @@ export const generateRequisitions = (): PurchaseRequisition[] => {
     return Array.from({ length: 12 }, (_, i) => ({
         id: `pr-${i}`,
         prNumber: `PR-2026-${String(i + 100)}`,
-        requestor: ['Alice Johnson', 'Bob Smith', 'Charlie Davis'][Math.floor(Math.random() * 3)],
+        requestor: ['Budi Santoso', 'Adi Wijaya', 'Siti Rahma'][Math.floor(Math.random() * 3)],
         department: ['Production', 'Maintenance', 'Office'][Math.floor(Math.random() * 3)],
         requestDate: formatDate(new Date(2026, 4, 10 + i)),
         requiredDate: formatDate(new Date(2026, 5, 10 + i)),
         status: ['Draft', 'Submitted', 'In Review', 'Approved', 'Rejected', 'Converted to PO'][Math.floor(Math.random() * 6)] as any,
-        estimatedValue: Math.floor(Math.random() * 15000) + 1000,
+        estimatedValue: Math.floor(Math.random() * 140000000) + 10000000,
     }));
 };
 
@@ -441,7 +455,7 @@ export const generateRFQs = (): RFQ[] => {
     return Array.from({ length: 8 }, (_, i) => ({
         id: `rfq-${i}`,
         rfqNumber: `RFQ-2026-${String(i + 50)}`,
-        itemDescription: ['Lumber Batch', 'Screws & Fasteners', 'Leather Rolls', 'Packaging Materials'][Math.floor(Math.random() * 4)],
+        itemDescription: ['Kayu Jati Rimba', 'Metal Drawer Slides & Hinges', 'Premium Leather Rolls', 'Packaging Cartons'][Math.floor(Math.random() * 4)],
         deadline: formatDate(new Date(2026, 5, 15 + i)),
         status: ['Draft', 'Published', 'Bids Received', 'Closed', 'Awarded'][Math.floor(Math.random() * 5)] as any,
         bidCount: Math.floor(Math.random() * 4),
@@ -483,7 +497,7 @@ export const generateContracts = (suppliers: Supplier[]): Contract[] => {
         supplierName: s.name,
         startDate: formatDate(new Date(2025, 0, 1)),
         endDate: formatDate(new Date(2026, 11, 31)),
-        value: Math.floor(Math.random() * 500000) + 50000,
+        value: Math.floor(Math.random() * 4500000000) + 500000000,
         status: ['Active', 'Expiring Soon'][Math.floor(Math.random() * 2)] as any,
     }));
 };

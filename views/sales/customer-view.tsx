@@ -8,11 +8,11 @@ import { Icons } from '@/components/icons';
 import { CreateDrawer } from '@/components/create-drawer';
 
 const CUSTOMERS_DATA = [
-    { id: '1', name: 'Acme Corp', segment: 'Enterprise', status: 'Active', spend: 154000, lastOrder: '2026-05-15' },
-    { id: '2', name: 'TechFlow', segment: 'Mid-Market', status: 'Active', spend: 42500, lastOrder: '2026-06-02' },
-    { id: '3', name: 'Global Logistics', segment: 'Enterprise', status: 'Inactive', spend: 12000, lastOrder: '2025-11-10' },
-    { id: '4', name: 'Retail Plus', segment: 'Small Business', status: 'Active', spend: 8500, lastOrder: '2026-05-28' },
-    { id: '5', name: 'Nexus Industries', segment: 'Enterprise', status: 'Active', spend: 215000, lastOrder: '2026-06-08' },
+    { id: '1', name: 'PT Ruang Kerja Modern', segment: 'Enterprise', status: 'Active', spend: 2310000000, lastOrder: '2026-05-15' },
+    { id: '2', name: 'PT Desain Interior Prima', segment: 'Mid-Market', status: 'Active', spend: 637500000, lastOrder: '2026-06-02' },
+    { id: '3', name: 'PT Logistik Nusantara', segment: 'Enterprise', status: 'Inactive', spend: 180000000, lastOrder: '2025-11-10' },
+    { id: '4', name: 'PT Ritel Mebel Indonesia', segment: 'Small Business', status: 'Active', spend: 127500000, lastOrder: '2026-05-28' },
+    { id: '5', name: 'PT Amanah Properti Hotel', segment: 'Enterprise', status: 'Active', spend: 3225000000, lastOrder: '2026-06-08' },
 ];
 
 const COLUMNS: ColumnDef<any>[] = [
@@ -29,7 +29,7 @@ const COLUMNS: ColumnDef<any>[] = [
     { 
         header: 'Total Spend', 
         accessorKey: 'spend',
-        render: (value: any, item: any) => `$${item.spend.toLocaleString()}`
+        render: (value: any, item: any) => `Rp ${Number(item.spend).toLocaleString('id-ID')}`
     },
 ];
 

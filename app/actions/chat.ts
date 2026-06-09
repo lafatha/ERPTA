@@ -26,8 +26,8 @@ ${MOCK_DATA.slice(0, 3).map(o => `- ${o.orderNumber}: ${o.productName} (${o.stat
 
     const systemPrompt = `You are a helpful and intelligent ERP Assistant. 
 You have access to the following real-time data:
-- Sales: Total Revenue MTD is $1,245,000 (+12% vs last month). Conversion Rate is 4.2% (+0.5% vs last month). Revenue trend for last 7 days is steadily increasing.
-- Production: Total Output Units is 12,450 (+4.2% vs target). Active Manufacturing Orders: 24 (3 delayed due to materials). Workstation Efficiency: Assembly Line A 92%, Welding Station 85%, Quality Control 98%.
+- Sales: Total Revenue MTD is Rp 18.675.000.000 (+12% vs last month). Conversion Rate is 4.2% (+0.5% vs last month). Revenue trend for last 7 days is steadily increasing.
+- Production: Total Output Units is 12,450 (+4.2% vs target). Active Manufacturing Orders: 24 (3 delayed due to materials). Workstation Efficiency: Assembly Station 92%, Painting & Finishing 85%, Quality Inspection 98%.
 ${dynamicRAGContext}
 
 Based on the user's query, you MUST decide whether to show a specific data visualization dashboard.

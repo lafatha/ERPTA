@@ -11,7 +11,7 @@ export const QUOTATION_COLUMNS: ColumnDef<Quotation>[] = [
     { header: 'Quote #', accessorKey: 'quoteNumber', width: 'w-32', render: (val) => <span className="font-medium text-gray-900">{val}</span> },
     { header: 'Account', accessorKey: 'accountName' },
     { header: 'Opportunity', accessorKey: 'opportunityName' },
-    { header: 'Total Amount', accessorKey: 'totalAmount', type: 'number', render: (val) => `$${Number(val).toLocaleString()}` },
+    { header: 'Total Amount', accessorKey: 'totalAmount', type: 'number', render: (val) => `Rp ${Number(val).toLocaleString('id-ID')}` },
     { header: 'Valid Until', accessorKey: 'validUntil' },
     { 
         header: 'Status', 

@@ -20,7 +20,7 @@ export const ProcurementAnalyticsView = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="bg-white p-5 border border-gray-200 rounded-sm shadow-sm">
                         <p className="text-sm text-gray-500 font-medium">Total PO Spend (YTD)</p>
-                        <p className="text-3xl font-semibold text-gray-900 mt-2">${totalPOValue.toLocaleString('en-US', {maximumFractionDigits: 0})}</p>
+                        <p className="text-3xl font-semibold text-gray-900 mt-2">Rp {totalPOValue.toLocaleString('id-ID', {maximumFractionDigits: 0})}</p>
                     </div>
                     <div className="bg-white p-5 border border-gray-200 rounded-sm shadow-sm">
                         <p className="text-sm text-gray-500 font-medium">Pending Inspections</p>

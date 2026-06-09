@@ -10,10 +10,10 @@ export const AnalyticsView = () => {
     if (!mounted) return null;
 
     const KPIS = [
-        { label: 'Total Revenue (YTD)', value: '$1.8M', trend: '+15%', isPositive: true },
+        { label: 'Total Revenue (YTD)', value: 'Rp 27.000.000.000', trend: '+15%', isPositive: true },
         { label: 'Active Deals', value: '45', trend: '+12', isPositive: true },
         { label: 'Win Rate', value: '68%', trend: '+4%', isPositive: true },
-        { label: 'Average Deal Size', value: '$45k', trend: '-2%', isPositive: false },
+        { label: 'Average Deal Size', value: 'Rp 675.000.000', trend: '-2%', isPositive: false },
     ];
 
     return (
@@ -47,7 +47,7 @@ export const AnalyticsView = () => {
                             </div>
                         ))}
                         <div className="absolute left-0 right-0 bottom-0 h-6 flex justify-between text-[10px] text-gray-400 dark:text-[#717171] pt-1">
-                            <span>NA</span><span>EU</span><span>APAC</span><span>LATAM</span><span>MEA</span>
+                            <span>DKI Jakarta</span><span>Jawa Barat</span><span>Jawa Timur</span><span>Jawa Tengah</span><span>Luar Jawa</span>
                         </div>
                     </div>
                 </div>
@@ -56,10 +56,10 @@ export const AnalyticsView = () => {
                     <h3 className="text-sm font-semibold text-gray-800 dark:text-white mb-4">Top Customers</h3>
                     <div className="space-y-4">
                         {[
-                            { name: 'Nexus Industries', value: '$215,000' },
-                            { name: 'Acme Corp', value: '$154,000' },
-                            { name: 'TechFlow', value: '$42,500' },
-                            { name: 'Global Logistics', value: '$12,000' },
+                            { name: 'PT Amanah Properti Hotel', value: 'Rp 3.225.000.000' },
+                            { name: 'PT Ruang Kerja Modern', value: 'Rp 2.310.000.000' },
+                            { name: 'PT Desain Interior Prima', value: 'Rp 637.500.000' },
+                            { name: 'PT Logistik Nusantara', value: 'Rp 180.000.000' },
                         ].map((cust, i) => (
                             <div key={i} className="flex justify-between items-center border-b border-gray-100 dark:border-[#3f3f3f] pb-2 last:border-0 last:pb-0">
                                 <span className="text-sm text-gray-700 dark:text-[#f1f1f1]">{cust.name}</span>

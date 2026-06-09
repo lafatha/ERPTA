@@ -12,7 +12,7 @@ export const REQUISITION_COLUMNS: ColumnDef<PurchaseRequisition>[] = [
     { header: 'Requestor', accessorKey: 'requestor' },
     { header: 'Department', accessorKey: 'department' },
     { header: 'Required Date', accessorKey: 'requiredDate' },
-    { header: 'Est. Value', accessorKey: 'estimatedValue', type: 'number', render: (val) => `$${Number(val).toLocaleString()}` },
+    { header: 'Est. Value', accessorKey: 'estimatedValue', type: 'number', render: (val) => `Rp ${Number(val).toLocaleString('id-ID')}` },
     { 
         header: 'Status', 
         accessorKey: 'status',

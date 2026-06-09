@@ -11,7 +11,7 @@ export const BOM_COLUMNS: ColumnDef<BOM>[] = [
     { header: 'Product', accessorKey: 'productName', width: 'w-48', render: (val) => <span className="font-medium text-gray-900">{val}</span> },
     { header: 'Version', accessorKey: 'version' },
     { header: 'Component Count', accessorKey: 'componentCount', type: 'number' },
-    { header: 'Total Cost', accessorKey: 'totalCost', type: 'number', render: (val) => `$${Number(val).toLocaleString()}` },
+    { header: 'Total Cost', accessorKey: 'totalCost', type: 'number', render: (val) => `Rp ${Number(val).toLocaleString('id-ID')}` },
     { 
         header: 'Status', 
         accessorKey: 'status',

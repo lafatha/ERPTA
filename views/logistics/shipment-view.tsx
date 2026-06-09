@@ -15,10 +15,10 @@ interface Shipment {
 }
 
 const mockShipments: Shipment[] = [
-    { id: '1', trackingId: 'SHP-9901', customer: 'Acme Corp', destination: 'Boston, MA', expectedDate: '2026-06-12', currentLocation: 'Philadelphia Hub', status: 'In Transit' },
-    { id: '2', trackingId: 'SHP-9902', customer: 'Global Tech', destination: 'San Francisco, CA', expectedDate: '2026-06-15', currentLocation: 'Salt Lake City, UT', status: 'In Transit' },
-    { id: '3', trackingId: 'SHP-9903', customer: 'Stark Industries', destination: 'New York, NY', expectedDate: '2026-06-08', currentLocation: 'New York, NY', status: 'Delivered' },
-    { id: '4', trackingId: 'SHP-9904', customer: 'Wayne Ent.', destination: 'Gotham, NJ', expectedDate: '2026-06-09', currentLocation: 'Chicago Hub', status: 'Delayed' },
+    { id: '1', trackingId: 'SHP-9901', customer: 'PT Ruang Kerja Modern', destination: 'Jakarta', expectedDate: '2026-06-12', currentLocation: 'Tangerang Hub', status: 'In Transit' },
+    { id: '2', trackingId: 'SHP-9902', customer: 'PT Desain Interior Prima', destination: 'Surabaya', expectedDate: '2026-06-15', currentLocation: 'Semarang Hub', status: 'In Transit' },
+    { id: '3', trackingId: 'SHP-9903', customer: 'PT Amanah Properti Hotel', destination: 'Bandung', expectedDate: '2026-06-08', currentLocation: 'Bandung', status: 'Delivered' },
+    { id: '4', trackingId: 'SHP-9904', customer: 'PT Ritel Mebel Indonesia', destination: 'Medan', expectedDate: '2026-06-09', currentLocation: 'Surabaya Hub', status: 'Delayed' },
 ];
 
 export const SHIPMENT_COLUMNS: ColumnDef<Shipment>[] = [

@@ -8,24 +8,24 @@ const random = () => {
 };
 
 export const PRODUCTS = [
-    { name: 'Industrial Pump', part: 'IP-100', unit: 'pcs' },
-    { name: 'Hydraulic Valve', part: 'HV-250', unit: 'pcs' },
-    { name: 'Steel Frame A', part: 'SF-A1', unit: 'kg' },
-    { name: 'Gearbox Assembly', part: 'GA-500', unit: 'pcs' },
-    { name: 'Control Panel V2', part: 'CP-V2', unit: 'pcs' },
-    { name: 'Base Bulk Food Product', part: 'BBFP', unit: 'kg' },
-    { name: 'Packaged Food Product, 5L', part: 'PFP_5L', unit: 'pcs' },
-    { name: 'Wooden Table', part: 'WT-01', unit: 'pcs' },
-    { name: 'Main Subassembly', part: 'MS-1', unit: 'pcs' },
-    { name: 'Mechanical Subassembly', part: 'MS-11', unit: 'pcs' },
-    { name: 'Final Assembly', part: 'FA-00', unit: 'pcs' }
+    { name: 'Executive Desk Pro', part: 'FG-EDP-001', unit: 'pcs' },
+    { name: 'Modern Wardrobe Series A', part: 'FG-MWA-002', unit: 'pcs' },
+    { name: 'Premium Bookshelf XL', part: 'FG-PBX-003', unit: 'pcs' },
+    { name: 'Conference Table Elite', part: 'FG-CTE-004', unit: 'pcs' },
+    { name: 'Luxury Sofa Collection', part: 'FG-LSC-005', unit: 'pcs' },
+    { name: 'Dining Set Signature', part: 'FG-DSS-006', unit: 'pcs' },
+    { name: 'Oak Wood Panel 8x4', part: 'RM-OWP-001', unit: 'pcs' },
+    { name: 'Teak Wood Board', part: 'RM-TWB-002', unit: 'pcs' },
+    { name: 'MDF Sheet 18mm', part: 'RM-MDF-003', unit: 'pcs' },
+    { name: 'Premium Leather Roll', part: 'RM-LTR-008', unit: 'pcs' },
+    { name: 'Metal Drawer Slides', part: 'RM-DRW-010', unit: 'pcs' }
 ];
 
 export const STATUSES: OrderStatus[] = ['Planned', 'Scheduled', 'Released', 'In Production', 'Delayed', 'Completed', 'Cancelled'];
 export const PARTS_STATUSES = ['Booked', 'Not booked', 'Expected', 'Received', 'Delayed'];
 export const PRIORITIES: Priority[] = ['Low', 'Normal', 'High', 'Urgent'];
-export const OPERATORS = ['Mr. Peasy', 'John Carter', 'Sarah Kim', 'David Chen', 'Emma Wilson', 'Unassigned'];
-export const FACTORIES = ['Jakarta Plant', 'Bandung Plant', 'Surabaya Plant', 'US Plant 1', 'DE Plant 2'];
+export const OPERATORS = ['Budi Santoso', 'Siti Rahma', 'Adi Wijaya', 'Eko Susilo', 'Dewi Lestari', 'Unassigned'];
+export const FACTORIES = ['Jepara Plant', 'Cikarang Plant', 'Surabaya Plant', 'Tangerang Plant', 'Semarang Plant'];
 
 export const generateMockData = (count: number): ManufacturingOrder[] => {
     return Array.from({ length: count }, (_, i) => {

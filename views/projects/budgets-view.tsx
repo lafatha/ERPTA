@@ -14,8 +14,8 @@ export const BUDGET_COLUMNS: ColumnDef<ProjectBudget>[] = [
         options: ['Labor', 'Materials', 'Software', 'Travel', 'Other'],
         type: 'select'
     },
-    { header: 'Allocated', accessorKey: 'allocated', type: 'number', render: (val) => `$${Number(val).toLocaleString()}` },
-    { header: 'Spent', accessorKey: 'spent', type: 'number', render: (val) => `$${Number(val).toLocaleString()}` },
+    { header: 'Allocated', accessorKey: 'allocated', type: 'number', render: (val) => `Rp ${Number(val).toLocaleString('id-ID')}` },
+    { header: 'Spent', accessorKey: 'spent', type: 'number', render: (val) => `Rp ${Number(val).toLocaleString('id-ID')}` },
     { header: 'Variance', accessorKey: 'allocated', type: 'number', render: (val, row) => {
         const remaining = Number(val) - Number(row.spent);
         const percent = (Number(row.spent) / Number(val)) * 100;
@@ -24,7 +24,7 @@ export const BUDGET_COLUMNS: ColumnDef<ProjectBudget>[] = [
                 <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
                     <div className={`h-full ${percent > 90 ? 'bg-red-500' : percent > 75 ? 'bg-orange-500' : 'bg-green-500'}`} style={{ width: `${Math.min(percent, 100)}%` }}></div>
                 </div>
-                <span className={`text-xs ${remaining < 0 ? 'text-red-600 font-semibold' : ''}`}>${Math.abs(remaining).toLocaleString()}</span>
+                <span className={`text-xs ${remaining < 0 ? 'text-red-600 font-semibold' : ''}`}>Rp {Math.abs(remaining).toLocaleString('id-ID')}</span>
             </div>
         );
     }}

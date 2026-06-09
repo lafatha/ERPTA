@@ -94,7 +94,7 @@ export const DashboardAiView = () => {
                     <div className="grid grid-cols-2 gap-4 mb-6">
                         <div className="bg-white dark:bg-[#212121] p-5 rounded-sm border border-gray-200 dark:border-transparent shadow-sm">
                             <div className="text-sm text-gray-600 dark:text-[#aaaaaa] mb-1">Total Revenue (MTD)</div>
-                            <div className="text-2xl font-bold text-gray-900 dark:text-white">$1,245,000</div>
+                            <div className="text-2xl font-bold text-gray-900 dark:text-white">Rp 18.675.000.000</div>
                             <div className="text-xs text-green-600 dark:text-green-400 mt-2 flex items-center gap-1"><Icons.TrendingUp className="w-3 h-3" /> +12% <span className="text-gray-400 dark:text-[#717171]">vs last month</span></div>
                         </div>
                         <div className="bg-white dark:bg-[#212121] p-5 rounded-sm border border-gray-200 dark:border-transparent shadow-sm">
@@ -135,15 +135,15 @@ export const DashboardAiView = () => {
                         <div className="text-sm font-semibold text-gray-800 dark:text-white mb-4">Workstation Efficiency</div>
                         <div className="space-y-4">
                             <div>
-                                <div className="flex justify-between text-xs mb-1"><span className="text-gray-600 dark:text-[#aaaaaa]">Assembly Line A</span><span className="font-bold text-gray-900 dark:text-white">92%</span></div>
+                                <div className="flex justify-between text-xs mb-1"><span className="text-gray-600 dark:text-[#aaaaaa]">Assembly Station</span><span className="font-bold text-gray-900 dark:text-white">92%</span></div>
                                 <div className="w-full bg-gray-100 dark:bg-[#3f3f3f] h-1.5 rounded-full overflow-hidden"><div className="bg-black dark:bg-white h-1.5" style={{width: '92%'}}></div></div>
                             </div>
                             <div>
-                                <div className="flex justify-between text-xs mb-1"><span className="text-gray-600 dark:text-[#aaaaaa]">Welding Station</span><span className="font-bold text-gray-900 dark:text-white">85%</span></div>
+                                <div className="flex justify-between text-xs mb-1"><span className="text-gray-600 dark:text-[#aaaaaa]">Painting & Finishing</span><span className="font-bold text-gray-900 dark:text-white">85%</span></div>
                                 <div className="w-full bg-gray-100 dark:bg-[#3f3f3f] h-1.5 rounded-full overflow-hidden"><div className="bg-black dark:bg-white h-1.5" style={{width: '85%'}}></div></div>
                             </div>
                             <div>
-                                <div className="flex justify-between text-xs mb-1"><span className="text-gray-600 dark:text-[#aaaaaa]">Quality Control</span><span className="font-bold text-gray-900 dark:text-white">98%</span></div>
+                                <div className="flex justify-between text-xs mb-1"><span className="text-gray-600 dark:text-[#aaaaaa]">Quality Inspection</span><span className="font-bold text-gray-900 dark:text-white">98%</span></div>
                                 <div className="w-full bg-gray-100 dark:bg-[#3f3f3f] h-1.5 rounded-full overflow-hidden"><div className="bg-black dark:bg-white h-1.5" style={{width: '98%'}}></div></div>
                             </div>
                         </div>

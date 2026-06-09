@@ -16,19 +16,19 @@ interface PayrollRecord {
 }
 
 const mockPayroll: PayrollRecord[] = [
-    { id: '1', employeeName: 'John Doe', period: 'May 2026', basicSalary: 5000, allowances: 500, deductions: 200, netPay: 5300, status: 'Paid' },
-    { id: '2', employeeName: 'Jane Smith', period: 'May 2026', basicSalary: 6000, allowances: 800, deductions: 300, netPay: 6500, status: 'Paid' },
-    { id: '3', employeeName: 'Robert Johnson', period: 'May 2026', basicSalary: 4500, allowances: 400, deductions: 150, netPay: 4750, status: 'Processing' },
-    { id: '4', employeeName: 'Emily Davis', period: 'May 2026', basicSalary: 5500, allowances: 600, deductions: 250, netPay: 5850, status: 'Pending' },
+    { id: '1', employeeName: 'Budi Santoso', period: 'May 2026', basicSalary: 12000000, allowances: 1200000, deductions: 400000, netPay: 12800000, status: 'Paid' },
+    { id: '2', employeeName: 'Siti Rahma', period: 'May 2026', basicSalary: 15000000, allowances: 1800000, deductions: 500000, netPay: 16300000, status: 'Paid' },
+    { id: '3', employeeName: 'Adi Wijaya', period: 'May 2026', basicSalary: 10500000, allowances: 900000, deductions: 300000, netPay: 11100000, status: 'Processing' },
+    { id: '4', employeeName: 'Dewi Lestari', period: 'May 2026', basicSalary: 13500000, allowances: 1500000, deductions: 450000, netPay: 14550000, status: 'Pending' },
 ];
 
 export const PAYROLL_COLUMNS: ColumnDef<PayrollRecord>[] = [
     { header: 'Employee', accessorKey: 'employeeName', width: 'w-48', render: (val) => <span className="font-medium text-gray-900 dark:text-white">{val}</span> },
     { header: 'Period', accessorKey: 'period' },
-    { header: 'Basic Salary', accessorKey: 'basicSalary', type: 'number', render: (val) => `$${val.toLocaleString()}` },
-    { header: 'Allowances', accessorKey: 'allowances', type: 'number', render: (val) => `+$${val.toLocaleString()}` },
-    { header: 'Deductions', accessorKey: 'deductions', type: 'number', render: (val) => `-$${val.toLocaleString()}` },
-    { header: 'Net Pay', accessorKey: 'netPay', type: 'number', render: (val) => <span className="font-semibold text-black dark:text-white">${val.toLocaleString()}</span> },
+    { header: 'Basic Salary', accessorKey: 'basicSalary', type: 'number', render: (val) => `Rp ${val.toLocaleString('id-ID')}` },
+    { header: 'Allowances', accessorKey: 'allowances', type: 'number', render: (val) => `+Rp ${val.toLocaleString('id-ID')}` },
+    { header: 'Deductions', accessorKey: 'deductions', type: 'number', render: (val) => `-Rp ${val.toLocaleString('id-ID')}` },
+    { header: 'Net Pay', accessorKey: 'netPay', type: 'number', render: (val) => <span className="font-semibold text-black dark:text-white">Rp {val.toLocaleString('id-ID')}</span> },
     { 
         header: 'Status', 
         accessorKey: 'status',

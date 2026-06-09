@@ -16,16 +16,16 @@ interface ForecastItem {
 }
 
 const mockForecasts: ForecastItem[] = [
-    { id: '1', product: 'Widget A', category: 'Electronics', lastMonth: 1200, projected: 1450, confidence: 92, trend: 'up' },
-    { id: '2', product: 'Gadget B', category: 'Electronics', lastMonth: 850, projected: 820, confidence: 85, trend: 'stable' },
-    { id: '3', product: 'Component C', category: 'Hardware', lastMonth: 2100, projected: 1800, confidence: 78, trend: 'down' },
-    { id: '4', product: 'Device D', category: 'Smart Home', lastMonth: 450, projected: 600, confidence: 95, trend: 'up' },
-    { id: '5', product: 'Accessory E', category: 'Mobile', lastMonth: 3200, projected: 3300, confidence: 88, trend: 'stable' },
+    { id: '1', product: 'Executive Desk', category: 'Finished Goods', lastMonth: 120, projected: 145, confidence: 92, trend: 'up' },
+    { id: '2', product: 'Ergonomic Office Chair', category: 'Finished Goods', lastMonth: 850, projected: 820, confidence: 85, trend: 'stable' },
+    { id: '3', product: 'Drawer Slides', category: 'Hardware', lastMonth: 2100, projected: 1800, confidence: 78, trend: 'down' },
+    { id: '4', product: 'Teak Wood Boards', category: 'Raw Materials', lastMonth: 450, projected: 600, confidence: 95, trend: 'up' },
+    { id: '5', product: 'Upholstery Fabric', category: 'Upholstery Materials', lastMonth: 3200, projected: 3300, confidence: 88, trend: 'stable' },
 ];
 
 const FORECAST_COLUMNS: ColumnDef<ForecastItem>[] = [
     { header: 'Product', accessorKey: 'product', width: 'w-48', render: (val) => <span className="font-medium text-gray-900 dark:text-white">{val}</span> },
-    { header: 'Category', accessorKey: 'category', type: 'select', options: ['Electronics', 'Hardware', 'Smart Home', 'Mobile'] },
+    { header: 'Category', accessorKey: 'category', type: 'select', options: ['Finished Goods', 'Raw Materials', 'Upholstery Materials', 'Hardware'] },
     { header: 'Last Month Actual', accessorKey: 'lastMonth', type: 'number', render: (val) => val.toLocaleString() },
     { header: 'Projected Next Month', accessorKey: 'projected', type: 'number', render: (val) => <span className="font-semibold">{val.toLocaleString()}</span> },
     { 

@@ -11,7 +11,7 @@ export const LogisticsAnalyticsView = () => (
                 { label: 'On-Time Delivery', value: '94.2%', trend: '+1.5%' },
                 { label: 'Active Shipments', value: '128', trend: '+12' },
                 { label: 'Fleet Utilization', value: '82%', trend: '-3%' },
-                { label: 'Avg Transport Cost', value: '$840', trend: '-$25' },
+                { label: 'Avg Transport Cost', value: 'Rp 12.600.000', trend: '-Rp 375.000' },
             ].map(kpi => (
                 <div key={kpi.label} className="bg-white dark:bg-[#1a1a1a] p-5 border border-gray-200 dark:border-[#333] rounded-sm shadow-sm transition-colors">
                     <div className="text-sm text-gray-500 dark:text-[#aaaaaa] mb-2">{kpi.label}</div>

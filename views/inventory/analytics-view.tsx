@@ -8,7 +8,8 @@ export const AnalyticsView = () => {
     const { inventoryItems, inventoryTransactions } = state;
 
     const totalValue = inventoryItems.reduce((acc, item) => {
-        const valNum = (item.name.length * 12.5) + (item.category === 'Finished Goods' ? 200 : 5);
+        const multiplier = item.category === 'Finished Goods' ? 15000000 : 150000;
+        const valNum = (item.name.length * multiplier * 0.05) + (item.category === 'Finished Goods' ? 3000000 : 75000);
         return acc + (valNum * item.stockLevel);
     }, 0);
 
@@ -24,7 +25,7 @@ export const AnalyticsView = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="bg-white p-5 border border-gray-200 rounded-sm shadow-sm">
                         <p className="text-sm text-gray-500 font-medium">Total Inventory Value</p>
-                        <p className="text-3xl font-semibold text-gray-900 mt-2">${totalValue.toLocaleString('en-US', {maximumFractionDigits: 0})}</p>
+                        <p className="text-3xl font-semibold text-gray-900 mt-2">Rp {totalValue.toLocaleString('id-ID', {maximumFractionDigits: 0})}</p>
                     </div>
                     <div className="bg-white p-5 border border-gray-200 rounded-sm shadow-sm">
                         <p className="text-sm text-gray-500 font-medium">Out of Stock Items</p>

@@ -25,11 +25,11 @@ export const CrmAnalyticsView = () => {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div className="bg-white p-5 border border-gray-200 rounded-sm shadow-sm">
                         <p className="text-sm text-gray-500 font-medium">Closed Won (YTD)</p>
-                        <p className="text-3xl font-semibold text-green-600 mt-2">${totalWonRevenue.toLocaleString('en-US', {maximumFractionDigits: 0})}</p>
+                        <p className="text-3xl font-semibold text-green-600 mt-2">Rp {totalWonRevenue.toLocaleString('id-ID', {maximumFractionDigits: 0})}</p>
                     </div>
                     <div className="bg-white p-5 border border-gray-200 rounded-sm shadow-sm">
                         <p className="text-sm text-gray-500 font-medium">Open Pipeline Value</p>
-                        <p className="text-3xl font-semibold text-blue-600 mt-2">${openPipelineValue.toLocaleString('en-US', {maximumFractionDigits: 0})}</p>
+                        <p className="text-3xl font-semibold text-blue-600 mt-2">Rp {openPipelineValue.toLocaleString('id-ID', {maximumFractionDigits: 0})}</p>
                     </div>
                     <div className="bg-white p-5 border border-gray-200 rounded-sm shadow-sm">
                         <p className="text-sm text-gray-500 font-medium">Active Accounts</p>
@@ -56,7 +56,7 @@ export const CrmAnalyticsView = () => {
                                         <div className="w-48 bg-gray-100 rounded-full h-2.5 overflow-hidden">
                                             <div className="bg-gray-800 dark:bg-gray-400 h-full" style={{ width: `${width}%` }}></div>
                                         </div>
-                                        <div className="w-20 text-xs font-semibold text-gray-700">${val.toLocaleString()}</div>
+                                        <div className="w-20 text-xs font-semibold text-gray-700">Rp {val.toLocaleString('id-ID')}</div>
                                     </div>
                                 );
                             })}

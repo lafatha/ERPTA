@@ -10,8 +10,8 @@ import { RecordDrawer } from '@/components/record-drawer';
 export const PROJECT_COLUMNS: ColumnDef<Project>[] = [
     { header: 'Project Name', accessorKey: 'projectName', width: 'w-64', render: (val) => <span className="font-medium text-gray-900">{val}</span> },
     { header: 'Customer', accessorKey: 'customerName' },
-    { header: 'Budget', accessorKey: 'budget', type: 'number', render: (val) => `$${Number(val).toLocaleString()}` },
-    { header: 'Spent', accessorKey: 'spent', type: 'number', render: (val) => `$${Number(val).toLocaleString()}` },
+    { header: 'Budget', accessorKey: 'budget', type: 'number', render: (val) => `Rp ${Number(val).toLocaleString('id-ID')}` },
+    { header: 'Spent', accessorKey: 'spent', type: 'number', render: (val) => `Rp ${Number(val).toLocaleString('id-ID')}` },
     { header: 'End Date', accessorKey: 'endDate' },
     { 
         header: 'Status', 

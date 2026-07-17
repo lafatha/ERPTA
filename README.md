@@ -1,8 +1,9 @@
 <div align="center">
 
-# 🚀 ERPTA
+# 🚀 ERP Tugas Akhir
 ### Enterprise Resource Planning System for Industry 4.0
 
+This ERP is Created to fulfill Industry 4.0 Courses by Institut Teknologi Bandung
 A modern, AI-powered Enterprise Resource Planning (ERP) platform built with **Next.js**, **TypeScript**, and a **Hybrid Storage Architecture**. Designed to streamline procurement, inventory, warehouse, finance, CRM, and project management within a single integrated system.
 
 <p>

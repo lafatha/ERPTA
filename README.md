@@ -270,6 +270,7 @@ This project is released as an **Open Source Project** under the MIT License.
 
 ### ⭐ If you found this project useful, consider giving it a Star!
 
-Made with ❤️ by **Gagah Athallah Fatha**
+Coded with ❤️ by **Gagah Athallah Fatha**
+cc: Juan Christofel Advent Thio, Rhiza
 
 </div>
